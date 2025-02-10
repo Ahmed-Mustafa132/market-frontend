@@ -1,0 +1,27 @@
+:root{
+   --primary-color: #F38120;
+   --secondary-color: #2B3092;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:visited{
+    color: black;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+ul{
+    list-style-type: none;
+
+}
+li{
+    list-style: none;
+}
