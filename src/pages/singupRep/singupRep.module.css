@@ -168,3 +168,17 @@
     font-size: 3rem;
     color: var(--secondary-color);
 }
+/* Media Queries */
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .formContainer {
+        width: 80%;
+    }
+
+    .textContainer .text {
+        width: 80%;
+    }
+}

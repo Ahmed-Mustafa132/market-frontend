@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./singup.module.css";
+import style from "./singupMarket.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../axiosConfige/axiosConfige";
 import axios from "axios";
@@ -96,7 +96,9 @@ const Singuprep = () => {
               name="IDfront"
               className={style.IDBtn}
             />
-            <label htmlFor="IDfront">صورة البطاقة الشخصية <br /> من الامام</label>
+            <label htmlFor="IDfront">
+              صورة البطاقة الشخصية <br /> من الامام
+            </label>
 
             <input
               type="file"
@@ -104,7 +106,9 @@ const Singuprep = () => {
               name="IDback"
               className={style.IDBtn}
             />
-            <label htmlFor="IDback">صورة البطاقة الشخصية <br /> من الخلف</label>
+            <label htmlFor="IDback">
+              صورة البطاقة الشخصية <br /> من الخلف
+            </label>
           </div>
           <button type="button" className={style.submitBtn}>
             تسجيل
@@ -113,23 +117,18 @@ const Singuprep = () => {
       </div>
       <div className={style.textContainer}>
         <div className={style.imgContainer}>
-          
-        <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <div className={style.text}>
-          <h2>لماذا تنضم كمندوب معنا؟</h2>
+          <h2>لماذا تنضم كمتجر معنا؟</h2>
           <ul>
-            <li>تشتغل حسب وقتك وتفضيلاتك</li>
-            <li>المهام قريبة من مكانك</li>
-            <li>لا لتكلفة الانتقال و هدر الوقت</li>
-            <li>دخل اضافي مجزي</li>
-            <li>نسبة من اجمالي مبيعاتك</li>
-            <li>امكانيةالانضمامكعضو مستدام</li>
-            <li>بامتياز التعيين</li>
-            <li>مرتب ثابت +عمولة - تامينات</li>
+            <li>قسم تسويق كامل في خدمة شركتك</li>
+            <li>الوصول لكل العملاء  المحتملين في كل انحاء الجمهورية بدون تكاليف او مجهود</li>
+            <li>مندوبين تسويف لمتبعة العملاء   وعرض منتجك بدون حاجة لتدخل مباشر او اعباء إضافية</li>
+            <li>حملات إعلانية ممنهجة و ممولة </li>
           </ul>
           <div className={style.inmarket}>
-            <span className={style.intext}>في </span> 
+            <span className={style.intext}>في </span>
             <span className={style.markettext}>السوق</span>
           </div>
         </div>
