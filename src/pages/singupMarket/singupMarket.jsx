@@ -96,7 +96,7 @@ const Singuprep = () => {
               name="IDfront"
               className={style.IDBtn}
             />
-            <label htmlFor="IDfront">السجل التجاري </label>
+            <label htmlFor="IDfront">السجل <br />التجاري </label>
 
             <input
               type="file"
