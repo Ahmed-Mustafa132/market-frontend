@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 20px;
     background-image: url('../../assets/signinBG.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -171,15 +170,34 @@
     font-size: 3rem;
     color: var(--secondary-color);
 }
-/* media queries */ 
+
+/* Media Queries */
 @media (max-width: 600px) {
     .container {
         grid-template-columns: 1fr;
+        height: auto;
+        width: 100vw;
     }
+
     .formContainer {
         width: 80%;
     }
+
     .textContainer .text {
         width: 80%;
     }
+
+    .imgContainer {
+        width: 80vw;
+    }
+
+    .imgContainer::after {
+        display: none !important;
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        background: none;
+    }
+
 }
