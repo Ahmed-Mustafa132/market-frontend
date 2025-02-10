@@ -6,7 +6,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/singuprep" element={<Singuprep />} />
+        <Route path="/" element={<Singuprep />} />
       </Routes>
     </BrowserRouter>
   );
