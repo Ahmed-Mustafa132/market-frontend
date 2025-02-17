@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import style from "./singupMarket.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../axiosConfige/axiosConfige";
-import axios from "axios";
 
 const Singuprep = () => {
   const [formData, setFormData] = useState({
