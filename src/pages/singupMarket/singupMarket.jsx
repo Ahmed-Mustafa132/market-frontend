@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import style from "./singupMarket.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../axiosConfige/axiosConfige";
@@ -105,7 +105,7 @@ const Singuprep = () => {
             />
             <label htmlFor="IDback">البطاقة الضريبية </label>
           </div>
-          <button type="button" className={style.submitBtn}>
+          <button type="button" className={style.submitBtn} onClick={handleSubmit}>
             تسجيل
           </button>
         </form>
