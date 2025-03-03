@@ -2,6 +2,8 @@ import style from "./Navbar.module.css";
 import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { IoMenu } from "react-icons/io5";
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ export default function Navbar() {
     <>
       <header>
         <div className={style.menuIcon} onClick={toggleMenu}>
-          ☰
+          <IoMenu />
         </div>
         <nav>
           <ul className={isMenuOpen ? style.active : ""}>

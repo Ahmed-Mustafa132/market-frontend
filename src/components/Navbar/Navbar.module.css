@@ -6,7 +6,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 9999;
@@ -67,6 +67,9 @@ header nav ul li{
     border-radius: 5px;
     cursor: pointer;
     font-size: 2rem;
+}
+.menuIcon{
+    display: none;
 }
 /* Add these media queries at the bottom of the file */
 @media screen and (max-width: 768px) {
