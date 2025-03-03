@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from "./singup.module.css";
+import style from "./Singup.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../axiosConfige/axiosConfige";
 import { Link } from "react-router-dom";
