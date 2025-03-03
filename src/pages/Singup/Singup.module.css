@@ -121,7 +121,7 @@ form{
     background-color: transparent;
     position: relative;
     z-index: 1;
-        width: 400px;
+        width: 350px;
 }
 
 .imgContainer::after {
