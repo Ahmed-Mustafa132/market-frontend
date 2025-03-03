@@ -1,8 +1,10 @@
 .filter{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 50%;
+    position: fixed;
+    top: 8%;
     gap: 200px;
 }
 .filter button{
