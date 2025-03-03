@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import "./App.css";
+import "./app.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
