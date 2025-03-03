@@ -1,15 +1,39 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Singuprep from "./pages/singupRep/singupRep"
-import SingupMarket from "./pages/singupMarket/singupMarket";
-import "./app.css"
+import React, { lazy, Suspense } from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+const Navbar = lazy(() => import("./components/Navbar/Navbar"));
+
+const Home = lazy(() => import("./pages/Home/Home"));
+const SingupMarket = lazy(() => import("./pages/Singup/SingupMarket"));
+const SingupRep = lazy(() => import("./pages/Singup/SingupRep"));
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/singupRep" element={<Singuprep />} />
-        <Route path="/singupMarket" element={<SingupMarket />} />
-      </Routes>
+      <Navbar />
+      <Suspense
+        fallback={
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            <div className="loader">.</div>
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register-store" element={<SingupMarket />} />
+          <Route path="/register-representative" element={<SingupRep />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
-} 
+}
