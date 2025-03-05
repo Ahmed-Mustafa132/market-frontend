@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosConfige = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://market-backend-eight.vercel.app',
     headers: {
         "token": localStorage.getItem("token")
 
