@@ -73,7 +73,7 @@ const Singuprep = () => {
       });
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log(formData);
     e.preventDefault();
     if (!validateForm()) {
@@ -86,11 +86,15 @@ const Singuprep = () => {
       Object.keys(formData).forEach((key) => {
         formDataToSend.append(key, formData[key]);
       });
-      const response = axiosConfige.post("/user/register", formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      const response = await axiosConfige.post(
+        "/user/register",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
+      );
       console.log(response);
       setSubmitMessage({ type: "success", message: "تم التسجيل بنجاح" });
     } catch (error) {
