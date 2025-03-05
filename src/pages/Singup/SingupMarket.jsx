@@ -58,9 +58,9 @@ const Singuprep = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+
     if (type === "file") {
       setFormData({
         ...formData,
@@ -74,12 +74,12 @@ const Singuprep = () => {
     }
   };
   const handleSubmit = (e) => {
+    console.log(formData);
     e.preventDefault();
     if (!validateForm()) {
       setSubmitMessage({ type: "error", message: "يرجي تصحيح الاخطاء" });
       return;
     }
-
     setIsLoading(true);
     try {
       const formDataToSend = new FormData();
@@ -87,10 +87,14 @@ const Singuprep = () => {
         formDataToSend.append(key, formData[key]);
       });
       const response = axiosConfige.post("/user/register", formDataToSend, {
-        "Content-Type": "multipart/form-data",
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       });
+      console.log(response);
       setSubmitMessage({ type: "success", message: "تم التسجيل بنجاح" });
     } catch (error) {
+      console.log(error);
       setSubmitMessage({
         type: "error",
         message: error.response?.data?.massage || "حدث خطأ اثناء التسجيل",
@@ -195,8 +199,8 @@ const Singuprep = () => {
               السجل <br />
               التجاري{" "}
             </label>
-            {errors.identityFront && (
-              <span className={style.errorText}>{errors.identityFront}</span>
+            {errors.BusinessRecords && (
+              <span className={style.errorText}>{errors.BusinessRecords}</span>
             )}
 
             <input
@@ -208,8 +212,8 @@ const Singuprep = () => {
               accept="image/*"
             />
             <label htmlFor="taxID">البطاقة الضريبية </label>
-            {errors.identityBack && (
-              <span className={style.errorText}>{errors.identityBack}</span>
+            {errors.taxID && (
+              <span className={style.errorText}>{errors.taxID}</span>
             )}
           </div>
           <button

@@ -79,7 +79,7 @@ const Singuprep = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+console.log(formData)
     if (!validateForm()) {
       setSubmitMessage({ type: "error", message: "يرجى تصحيح الأخطاء" });
       return;
@@ -110,6 +110,7 @@ const Singuprep = () => {
       // يمكن إضافة التوجيه هنا بعد التسجيل الناجح
       // navigate('/login');
     } catch (error) {
+      console.error("Error during registration:", error);
       setSubmitMessage({
         type: "error",
         message: error.response?.data?.message || "حدث خطأ أثناء التسجيل",
