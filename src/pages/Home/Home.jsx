@@ -32,11 +32,13 @@ export default function Home() {
         <button> الاكثر مبيعا</button>
         <button> المنتجات الجديدة</button>
       </div>
-      <div className={style.search}>
+        <div className={style.search}>
+          <div className={style.searchInput}>
         <input type="text" placeholder="بحث " name="search" />
         <label htmlFor="search">
           <CiSearch />
-        </label>
+            </label>
+            </div>
         <div className={style.searchTypeContainer}>
           <p onClick={toggleDropdown} style={{ cursor: "pointer" }}>
             البحث في {searchType}

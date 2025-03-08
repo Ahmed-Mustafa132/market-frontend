@@ -72,3 +72,15 @@
   transform: scale(1.2);
   cursor: pointer;
 }
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .imageContainer {
+    width: 80%;
+  }
+  .textContainer {
+    width: 80%;
+  }
+  
+}

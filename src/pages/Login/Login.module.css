@@ -62,7 +62,7 @@
     font-weight: bold;
 }
 
-button{
+.btns button{
     background-color: var(--primary-color);
     color: white;
     padding: 10px 20px;
@@ -75,7 +75,7 @@ button{
     width: 100%;
     margin: 5px auto ;
 }
-button:hover{
+.btns button:hover{
     background-color: #fff;
     color: var(--primary-color);
 }
