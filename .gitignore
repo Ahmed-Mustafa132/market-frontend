@@ -12,7 +12,10 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Axios config
+src\axiosConfige\axiosConfige.js
+
+
 .vscode/*
 !.vscode/extensions.json
 .idea

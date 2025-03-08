@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+.formContainer {
+ 
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    text-align: center;
+    border-radius: 25px;
+    margin: 20px;
+    gap: 30px;
+}
+
+.formContainer h1 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.formContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formContainer input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+.formContainer input:focus {
+    outline: none;
+    border-color: none;
+}
+.formContainer p{
+    color: var(--primary-color)
+}
+.orDivider {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.orDivider::before,
+.orDivider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.orDivider span {
+    padding: 0 12px;
+    color: #999;
+    font-weight: bold;
+}
+
+button{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    border: 3px solid var(--primary-color);
+    width: 100%;
+    margin: 5px auto ;
+}
+button:hover{
+    background-color: #fff;
+    color: var(--primary-color);
+}

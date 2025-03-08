@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 50px;
+}
+.imageContainer {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+  overflow: hidden;
+  border: 1px solid 
+  ;
+}
+.textContainer{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 20px;
+}
+.textContainer h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+.textContainer .marketName {
+  font-size: 16px;
+  color: var(--text-color);
+}
+.textContainer .description {
+  font-size: 20px;
+  color: var(--text-color);  
+}
+.textContainer .price {
+  font-size: 24px;
+  color: var(--secondary-color);
+}
+.textContainer button {
+  width: 200px;
+  height: 50px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 20px;
+  border:  2px solid var(--secondary-color);
+  border-radius: 10px; 
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  font-size: 25px;
+}
+.textContainer button:hover {
+ background-color: white;
+ color: var(--secondary-color);
+}
+
+.ratingContainer {
+  margin: 20px 0;
+  direction: rtl;
+}
+
+.ratingContainer span {
+  font-size: 40px;
+  margin: 0 2px;
+  transition: all 0.2s ease;
+}
+
+.ratingContainer span:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}

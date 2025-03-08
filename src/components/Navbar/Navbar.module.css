@@ -25,6 +25,7 @@ header nav ul{
     width: 50%;
 }
 header nav ul li{
+    color : var(--text-color);
     width: 200px;
     margin: 0 10px;
 }
