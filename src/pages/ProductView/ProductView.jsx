@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosConfige from "../../axiosConfige/axiosConfige";
-import Style from "./productView.module.css";
+import Style from "./ProductView.module.css";
 
 export default function ProductView() {
     const { id } = useParams();
