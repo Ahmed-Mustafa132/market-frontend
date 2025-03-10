@@ -11,10 +11,13 @@ export default function Home() {
   const [searchType, setSearchType] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     axiosConfige.get("/product").then((res) => {
       setProducts(res.data.data);
       console.log(res.data.data);
+      setLoading(false);
     });
   }, []); 
   const toggleDropdown = () => {
@@ -27,41 +30,55 @@ export default function Home() {
   };
   console.log(products);
     return (
-    <section>
-      <div className={style.filter}>
-        <button> الاكثر مبيعا</button>
-        <button> المنتجات الجديدة</button>
-      </div>
+      <section>
+        <div className={style.filter}>
+          <button> الاكثر مبيعا</button>
+          <button> المنتجات الجديدة</button>
+        </div>
         <div className={style.search}>
           <div className={style.searchInput}>
-        <input type="text" placeholder="بحث " name="search" />
-        <label htmlFor="search">
-          <CiSearch />
+            <input type="text" placeholder="بحث " name="search" />
+            <label htmlFor="search">
+              <CiSearch />
             </label>
-            </div>
-        <div className={style.searchTypeContainer}>
-          <p onClick={toggleDropdown} style={{ cursor: "pointer" }}>
-            البحث في {searchType}
-          </p>
-          {isDropdownOpen && (
-            <div className={style.searchDropdown}>
-              <div onClick={() => selectSearchType("المنتجات")}>
-                بحث عن المنتجات
+          </div>
+          <div className={style.searchTypeContainer}>
+            <p onClick={toggleDropdown} style={{ cursor: "pointer" }}>
+              البحث في {searchType}
+            </p>
+            {isDropdownOpen && (
+              <div className={style.searchDropdown}>
+                <div onClick={() => selectSearchType("المنتجات")}>
+                  بحث عن المنتجات
+                </div>
+                <div onClick={() => selectSearchType("المتاجر")}>
+                  بحث عن المتاجر
+                </div>
               </div>
-              <div onClick={() => selectSearchType("المتاجر")}>
-                بحث عن المتاجر
-              </div>
+            )}
+          </div>
+        </div>
+        <div className={style.products}>
+          {loading && (
+            <div
+              style={{
+                width: "100%",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              <div className="loader">.</div>
             </div>
           )}
-        </div>
-      </div>
-      <div className={style.products}>
           {products.map((product) => (
-          <Link to={`/product/${product._id}`} key={product._id}>
-            <Card product={product} />
-                        </Link>
-        ))}
-      </div>
-    </section>
-  );
+            <Link to={`/product/${product._id}`} key={product._id}>
+              <Card product={product} />
+            </Link>
+          ))}
+        </div>
+      </section>
+    );
 }

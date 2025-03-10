@@ -45,7 +45,20 @@ export default function ProductView() {
     };
 
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return (
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {" "}
+        <div className="loader">.</div>
+      </div>
+    );
     if (error) return <div>Error: {error}</div>;
 
     return (
