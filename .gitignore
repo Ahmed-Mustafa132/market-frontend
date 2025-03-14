@@ -13,7 +13,8 @@ dist-ssr
 *.local
 
 # Axios config
-src\axiosConfige\axiosConfige.js
+
+src/axiosConfige/axiosConfige.js
 
 
 .vscode/*

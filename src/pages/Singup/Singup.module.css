@@ -4,9 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('../../assets/signinBG.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #f1f1f1;
 }
 
 .formContainer {
@@ -14,8 +12,8 @@
     text-align: center;
     background-color: #fff;
     border: 2px solid var(--primary-color);
-    border-radius: 10px 0 0 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #E7EAF0;
     padding: 20px;
     margin: auto;
     display: flex;
@@ -145,6 +143,9 @@ form{
     padding: 50px 20px;
     width: 50%;
     text-align: center;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px #E7EAF0;
+        border: 2px solid var(--primary-color);
 
 
 }

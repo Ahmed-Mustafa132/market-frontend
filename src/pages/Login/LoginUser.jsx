@@ -19,9 +19,18 @@ export default function Login() {
     const handelSubmit = async (e) => {
         e.preventDefault();
         console.log(user);
-
-        const res = await axiosConfige.post("/user", user)
-        console.log(res)
+        try {
+            setLoading(true);
+            const res = await axiosConfige.post("/user/user", user);
+            console.log(res);
+            setLoading(false);
+            setSuccess(true);
+            setError(null);
+        } catch (err) {
+            setLoading(false);
+            setError(err.response.data.message);
+            setSuccess(false);
+        }
     };
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -45,7 +54,7 @@ export default function Login() {
                         {" "}
                         <p>هل نسيت كلمة السر؟</p>
                     </Link>
-                    <button type="button" onClick={handelSubmit}>
+                    <button type="button" onClick={handelSubmit} >
                         تسجيل الدخول
                     </button>
                 </form>
@@ -63,7 +72,7 @@ export default function Login() {
                     <FaFacebook />
                 </button>
                 </div>
-                <p>ليس لدي حساب</p>
+                <Link to={""}>ليس لدي حساب</Link>
 
             </div>
         </div>

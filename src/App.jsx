@@ -8,7 +8,9 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const SingupMarket = lazy(() => import("./pages/Singup/SingupMarket"));
 const SingupRep = lazy(() => import("./pages/Singup/SingupRep"));
 const ProductView = lazy(() => import("./pages/ProductView/ProductView"));
-const  Login = lazy(() => import("./pages/Login/Login"));
+const LoginUser = lazy(() => import("./pages/Login/LoginUser"));
+const LoginRep = lazy(() => import("./pages/Login/LoginRep"));
+const LoginMarket  = lazy(() => import("./pages/Login/LoginMarket"));
 export default function App() {
   return (
     <BrowserRouter>
@@ -31,10 +33,14 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register-store" element={<SingupMarket />} />
-          <Route path="/register-representative" element={<SingupRep />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/product/:id" element={<ProductView />} />
+          {/* login  */}
+          <Route path="/login/user" element={<LoginUser />} />
+          <Route path="/login/representative" element={<LoginRep />} />
+          <Route path="/login/market" element={<LoginMarket />} />
+          {/* singup  */}
+          <Route path="/register/representative" element={<SingupRep />} />
+          <Route path="/register/market" element={<SingupMarket />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

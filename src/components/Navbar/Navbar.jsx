@@ -43,13 +43,13 @@ export default function Navbar() {
 
       <div className={style.drawer} onClick={() => showDrower()}>
         <button
-          onClick={() => navigate("/register-representative")}
+          onClick={() => navigate("/register/representative")}
           className={style.drawerBtn}
         >
           تسجيل كمندوب
         </button>
         <button
-          onClick={() => navigate("/register-store")}
+          onClick={() => navigate("/register/market")}
           className={style.drawerBtn}
         >
           تسجيل كمتجر

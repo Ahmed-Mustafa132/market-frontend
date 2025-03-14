@@ -13,7 +13,6 @@ const Singuprep = () => {
     phone: "",
     identityFront: null,
     identityBack: null,
-    role: "rep",
   });
 
   const [errors, setErrors] = useState({});
@@ -93,7 +92,7 @@ console.log(formData)
       });
 
       const response = await axiosConfige.post(
-        "/user/register",
+        "/user/representative/register",
         formDataToSend,
         {
           headers: {
@@ -251,7 +250,7 @@ console.log(formData)
           <p>
             <span>
               لديك حساب بالفعل؟
-              <Link to="/login">تسجيل الدخول</Link>
+              <Link to="/login/representative">تسجيل الدخول</Link>
             </span>
           </p>
         </div>

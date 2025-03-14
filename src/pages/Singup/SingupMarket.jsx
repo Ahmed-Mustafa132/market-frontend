@@ -87,7 +87,7 @@ const Singuprep = () => {
         formDataToSend.append(key, formData[key]);
       });
       const response = await axiosConfige.post(
-        "/user/register",
+        "/user/market/register",
         formDataToSend,
         {
           headers: {
@@ -231,7 +231,7 @@ const Singuprep = () => {
         <div className={style.textContainer}>
           <p>
             هل لديك حساب بالفعل؟
-            <Link to="/login">تسجيل الدخول</Link>
+            <Link to="/login/market">تسجيل الدخول</Link>
           </p>
         </div>
       </div>

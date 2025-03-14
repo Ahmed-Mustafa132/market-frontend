@@ -3,14 +3,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    min-height: 91vh;
+    background-color: #F1F1F1;
 }
 .formContainer {
- 
-    max-width: 400px;
+    min-width: 400px;
     padding: 40px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px #E7EAF0;
     background: #fff;
     text-align: center;
     border-radius: 25px;
@@ -26,6 +26,7 @@
 .formContainer form {
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 20px;
 }
 
@@ -61,6 +62,22 @@
     color: #999;
     font-weight: bold;
 }
+.submitBtn{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 3px solid var(--primary-color);
+    width: 100%;
+    margin: 5px auto ;
+}
+.submitBtn:hover{
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
 
 .btns button{
     background-color: var(--primary-color);
@@ -78,4 +95,22 @@
 .btns button:hover{
     background-color: #fff;
     color: var(--primary-color);
+}
+@media screen and (max-width: 768px) {
+    .formContainer {
+        min-width: 90%;
+    }
+    .formContainer h1 {
+        font-size: 24px;
+    }
+    .formContainer input {
+        font-size: 14px;
+    }
+    .submitBtn{
+        font-size: 14px;
+    }
+    .btns button{
+        font-size: 14px;
+    }
+    
 }
