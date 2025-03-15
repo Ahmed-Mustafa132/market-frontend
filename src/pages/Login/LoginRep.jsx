@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import Style from "./Login.module.css";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-import axiosConfige from "../../axiosConfige/axiosConfige";
+import { useNavigate } from "react-router-dom";
+import axiosConfige from "../../Config/axiosConfige";
 export default function LoginRep() {
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handelSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
     try {
-      const res = await axiosConfige.post("/user/representative/login", user);
+      const res = await axiosConfige.post("/auth/representative/login", user);
       setError(null);
       localStorage.setItem("token", res.data.token);
+      navigate("/Dashboard")
     } catch (err) {
       setError(err);
     }
@@ -24,7 +25,7 @@ export default function LoginRep() {
   return (
     <div className={Style.container}>
       <div className={Style.formContainer}>
-        <h1>تسجيل الدخول</h1>
+        <h1>تسجيل الدخول للمندوب</h1>
         {error && (
           <p>{error && "البريد الإلكتروني أو كلمة المرور غير صالحة"}</p>
         )}

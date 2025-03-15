@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./Singup.module.css";
 import logo from "../../assets/logo.png";
-import axiosConfige from "../../axiosConfige/axiosConfige";
+import axiosConfige from "../../Config/axiosConfige";
 import { Link } from "react-router-dom";
 const Singuprep = () => {
   const [formData, setFormData] = useState({
@@ -87,7 +87,7 @@ const Singuprep = () => {
         formDataToSend.append(key, formData[key]);
       });
       const response = await axiosConfige.post(
-        "/user/market/register",
+        "/auth/market/register",
         formDataToSend,
         {
           headers: {

@@ -55,16 +55,10 @@ export default function Navbar() {
           تسجيل كمتجر
         </button>
         <button
-          onClick={() => navigate("/register-representative")}
+          onClick={() => navigate("/register/user")}
           className={style.drawerBtn}
         >
           تسجيل كمستخدم
-        </button>
-        <button
-          onClick={() => navigate("/register-representative")}
-          className={style.drawerBtn}
-        >
-          لدي حساب
         </button>
       </div>
     </>

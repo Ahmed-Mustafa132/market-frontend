@@ -1,32 +1,37 @@
 import { useEffect,useState } from "react";
 import Style from "./Login.module.css";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-import axiosConfige from "../../axiosConfige/axiosConfige";
+import { useNavigate } from "react-router-dom";
+import axiosConfige from "../../Config/axiosConfige";
 export default function LoginRep() {
-    const [error, setError] = useState(null);
-    const [user, setUser] = useState({  
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({ 
+      
         email: "",
         password: "",
     });
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const handelSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      setLoading(true);
         console.log(user);
         try {
-            const res = await axiosConfige.post("/user/market/login", user);
+            const res = await axiosConfige.post("/auth/market/login", user);
             setError(null);
             localStorage.setItem("token", res.data.token);
-
+          setLoading(false);
+          navigate("/Dashboard")
 
         } catch (err) {
-            setError(err);
+          setError(err);
+          setLoading(false);
         }
     };
     return (
       <div className={Style.container}>
         <div className={Style.formContainer}>
-          <h1>تسجيل الدخول</h1>
+          <h1>تسجيل الدخول للمتجر</h1>
           {error && (
             <p>{error && "البريد الإلكتروني أو كلمة المرور غير صالحة"}</p>
           )}
@@ -50,7 +55,7 @@ export default function LoginRep() {
               className={Style.submitBtn}
               onClick={handelSubmit}
             >
-              تسجيل الدخول
+              {loading ? "جاري التسجيل" : "تسجيل الدخول"}
             </button>
           </form>
           <Link>

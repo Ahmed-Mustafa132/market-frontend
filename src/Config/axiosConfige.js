@@ -7,5 +7,4 @@ const axiosConfige = axios.create({
         "token": localStorage.getItem("token")
     }
 });
-
-export default axiosConfige ;
+export default axiosConfige;

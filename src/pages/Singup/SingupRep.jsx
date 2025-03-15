@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./Singup.module.css";
 import logo from "../../assets/logo.png";
-import axiosConfige from "../../axiosConfige/axiosConfige";
+import axiosConfige from "../../Config/axiosConfige";
 import { Link } from "react-router-dom";
 
 const Singuprep = () => {
@@ -92,7 +92,7 @@ console.log(formData)
       });
 
       const response = await axiosConfige.post(
-        "/user/representative/register",
+        "/auth/representative/register",
         formDataToSend,
         {
           headers: {

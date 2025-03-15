@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import style from "./Home.module.css";
 import { CiSearch } from "react-icons/ci";
 import Card from "../../components/ProdactCard/ProdactCard";
-import axiosConfige from "../../axiosConfige/axiosConfige";
+import axiosConfige from "../../Config/axiosConfige";
 import {Link, useNavigate} from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
