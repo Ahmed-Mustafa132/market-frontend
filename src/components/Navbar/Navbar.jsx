@@ -1,13 +1,26 @@
 import style from "./Navbar.module.css";
 import Logo from "../../assets/logo.png";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate,useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation(); 
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem("token");
+      setLogin(!!token);
+    };
+
+    // Check token status
+    checkToken();
+  }, [location.pathname]);
 
   const showDrower = () => {
     const drower = document.querySelector(`.${style.drawer}`);
@@ -33,6 +46,11 @@ export default function Navbar() {
             </li>
             <li>تواصل معنا</li>
             <li>تعرف علينا</li>
+            {login ? (
+              <li onClick={() => navigate("/dashboard")}>لوحة التحكم </li>
+            ) : (
+              ""
+            )}
             <li onClick={() => navigate("/")}>منتجاتنا</li>
           </ul>
         </nav>
@@ -54,6 +72,17 @@ export default function Navbar() {
         >
           تسجيل كمتجر
         </button>
+        {login ? (
+          <button
+            className={style.drawerBtn}
+            onClick={() => navigate("/dashboard")}
+          >
+            لوحة التحكم{" "}
+          </button>
+        ) : (
+          ""
+        )}
+
         <button
           onClick={() => navigate("/register/user")}
           className={style.drawerBtn}
