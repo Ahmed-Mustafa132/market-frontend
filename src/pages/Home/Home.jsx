@@ -16,7 +16,6 @@ export default function Home() {
   useEffect(() => {
     axiosConfige.get("/product").then((res) => {
       setProducts(res.data.data);
-      console.log(res.data.data);
       setLoading(false);
     });
   }, []); 
@@ -28,15 +27,15 @@ export default function Home() {
     setSearchType(type);
     setIsDropdownOpen(false);
   };
-  console.log(products);
     return (
       <section>
         <div className={style.filter}>
           <button> الاكثر مبيعا</button>
           <button> المنتجات الجديدة</button>
         </div>
-        <div className={style.search}>
-          <div className={style.searchInput}>
+        <div className=
+        'search'>
+          <div className='searchInput'>
             <input type="text" placeholder="بحث " name="search" />
             <label htmlFor="search">
               <CiSearch />

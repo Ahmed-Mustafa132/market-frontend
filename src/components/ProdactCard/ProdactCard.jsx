@@ -2,7 +2,6 @@ import style from "./ProdactCard.module.css";
 import { MdOutlineStar } from "react-icons/md";
 
 export default function ProdactCard({ product }) {
-  console.log(product);
     return (
       <div className={style.card}>
         <div className={style.image}>

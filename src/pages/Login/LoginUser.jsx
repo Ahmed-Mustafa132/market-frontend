@@ -86,7 +86,7 @@ export default function Login() {
             />
           </GoogleOAuthProvider>
         </div>
-        <Link to={""}>ليس لدي حساب</Link>
+        <Link to={"/register/user"}>ليس لدي حساب</Link>
       </div>
     </div>
   );

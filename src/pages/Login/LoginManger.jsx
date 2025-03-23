@@ -21,13 +21,12 @@ export default function Login() {
             localStorage.setItem("token", res.data.token);
       console.log(res);
       setLoading(false);
-      
-
+    
       setError(null);
       navigate("/dashboard")
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
     }
   };
   return (
