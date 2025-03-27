@@ -1,6 +1,5 @@
-
-.dashboardStats{
-    padding: 20px 0 ;
+.dashboardStats {
+    padding: 20px 0;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -9,69 +8,75 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+
 .statCard {
     flex: 0 0 calc(33.333% - 20px);
     /* This sets each card to take up exactly 1/3 of the container width minus the gap */
     max-width: calc(33.333% - 20px);
     box-sizing: border-box;
     background-color: #fff;
-    box-shadow: #fff 0 0 2ox ;
-border-radius: 10px;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-padding: 20px;
+    box-shadow: #f1f1f1 0 0 7px 0 inset;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+
 }
-.statCard h2{
+
+.statCard h2 {
     font-size: 1.5rem;
     color: var(--secondary-color);
 }
-.dashboardLists{
+
+.dashboardLists {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
 }
-.dashboardChart{
+
+.dashboardChart {
     margin: auto;
     width: 80%;
     background-color: #fff;
-    box-shadow: #fff 0 0 2px 0 ;
+    box-shadow: #fff 0 0 2px 0;
     border-radius: 10px;
     padding: 20px;
 }
-.listCard{
+
+.listCard {
     border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: #fff 0 0 2ox ;
-        width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: #fff 0 0 2ox;
+    width: 30%;
 }
-.listCard h3{
+
+.listCard h3 {
     font-size: 1.5rem;
     color: var(--secondary-color);
     margin-bottom: 10px;
 }
-.listCard ul{
-   display: flex;
-   flex-direction: column;
-   justify-content: start;
-   align-items: center;
-   width: 100%;
+
+.listCard ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
 }
-.listCard ul li{
+
+.listCard ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-}
-main section{
-    background-color: #f7f7f7;
 }

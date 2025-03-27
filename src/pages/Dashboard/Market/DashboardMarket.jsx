@@ -51,7 +51,7 @@ const options = {
     },
   },
 };
-export default function DashboardManger() {
+export default function DashboardMarket() {
   const [dashboardStats, setDashboardStats] = useState([]);
   const [topMarkets, setTopMarkets] = useState([]);
   const [topRepresentatives, setTopRepresentatives] = useState([]);
@@ -98,15 +98,15 @@ export default function DashboardManger() {
             <p>{dashboardStats.totalMissions}</p>
           </div>
           <div className={style.statCard}>
-            <h2>عدد المندوبين</h2>
+            <h2>عدد المنتجات </h2>
             <p>{dashboardStats.totalRepresentatives}</p>
           </div>
           <div className={style.statCard}>
-            <h2>عددالمنتجات</h2>
+            <h2> عددالمنتجات المباعة</h2>
             <p>{dashboardStats.totalProducts}</p>
           </div>
           <div className={style.statCard}>
-            <h2>عدد المديرين</h2>
+            <h2>عدد العملاء </h2>
             <p>{dashboardStats.totalMangers}</p>
           </div>
           <div className={style.statCard}>
@@ -120,7 +120,6 @@ export default function DashboardManger() {
           <div style={{ height: "400px", width: "800px", margin: "auto" }}>
             <Bar data={statsChartData} options={options} />
           </div>
-
         </div>
         <div className={style.dashboardLists}>
           <div className={style.listCard}>

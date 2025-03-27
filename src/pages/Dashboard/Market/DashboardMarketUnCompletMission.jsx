@@ -1,0 +1,140 @@
+import { useEffect, useState } from "react";
+import axiosConfige from "../../../Config/axiosConfige";
+import style from "../Dashboard.module.css";
+import { CiSearch } from "react-icons/ci";
+import { FaTrashAlt, FaCheckSquare } from "react-icons/fa";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+
+export default function DashboardRepCompletMission() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+    const [showdetails, setShowDetails] = useState(false);
+    const [details, setDetails] = useState([]);
+  useEffect(() => {
+    axiosConfige
+      .get("/mission/state/true")
+      .then((res) => {
+        setData(res.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.response.data);
+        setLoading(false);
+        console.error(error);
+      });
+  }, []);
+    
+  const deleteId = async (id) => {
+    if (window.confirm("هل أنت متأكد من حذف المهمة؟")) {
+      axiosConfige
+        .delete(`/mission/${id}`)
+        .then((res) => {
+          setData(data.filter((item) => item.id !== id));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+    const viewDetails = async (id) => {
+      try {
+        
+        axiosConfige.get(`/mission/${id}`).then((res) => {
+          setDetails(res.data.data[0]);
+          setShowDetails(!showdetails);
+        });
+      } catch {
+        setError(error)
+        console.log(error)
+      }
+    };
+  if (loading) return <LoadingSpinner />;
+  if (error) return <h1 style={{ textAlign: "center" }}>{error.massage}</h1>;
+
+  return (
+    <main>
+      <section>
+        <div className="search">
+          <div className="searchInput">
+            <input type="text" placeholder="بحث " name="search" />
+            <label htmlFor="search">
+              <CiSearch />
+            </label>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>المدير</th>
+              <th>المندوب</th>
+              <th>عدد المنتجات</th>
+              <th>الاجراء</th>
+            </tr>
+          </thead>
+          <tbody>
+            {console.log(data)}
+            {data.map((data) => {
+              const totalQuantity = data.products.reduce((acc, current) => {
+                return acc + current.quantity;
+              }, 0);
+              return (
+                <tr key={data.id}>
+                  <td>{data.manger}</td>
+                  <td>{data.representative}</td>
+                  <td>{totalQuantity}</td>
+                  <td className={style.icon}>
+                    <FaCheckSquare onClick={() => viewDetails(data.id)} />
+                    <FaTrashAlt onClick={() => deleteId(data.id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+    {showdetails && (
+          <div className={style.details}>
+            <div className={style.detailsContainer}>
+              <h1>تفاصيل المهمة</h1>
+              <div className={style.detailsContent}>
+                <div className={style.detailsItem}>
+                  <p>اسم المتجر</p>
+                  <p>{details.market}</p>
+                </div>
+                <div className={style.detailsItem}>
+                  <p> اسم المدير</p>
+                  <p>{details.manger}</p>
+                </div>
+                <div className={style.detailsItem}>
+                  <p> اسم لمندوب</p>
+                  <p>{details.representative}</p>
+                </div>
+                <div className={style.detailsItem}>
+                  <p> الحالة</p>
+                  <p>{details.complete ?("مكتملة") : ("تحت التنفيذ")}</p>
+                </div>
+
+                <div className={style.detailsItemList}>
+                  <p> المنتجات </p>
+                  <ul>
+                    {details.products.map((item) => {
+                      return (
+                        <li key={item.product.id}>
+                          <p>{item.product.title}</p>
+                          <p>{item.quantity}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+              <button onClick={() => setShowDetails(!showdetails)}>
+                اغلاق
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+}

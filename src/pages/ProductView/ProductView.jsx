@@ -5,31 +5,19 @@ import Style from "./ProductView.module.css";
 
 export default function ProductView() {
   const { id } = useParams();
-  const [product, setProduct] = useState({
-    name: "",
-    price: "",
-    description: "",
-    image: null,
-    store_id: "",
-  });
+  const [product, setProduct] = useState();
   const [selectedRating, setSelectedRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const [storeName, setStoreName] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProductAndStore = async () => {
       try {
-        const productResponse = await axiosConfige.get(`/product/${id}`);
-        setProduct(productResponse.data);
-        console.log(productResponse.data);
-        const storeResponse = await axiosConfige.get(
-          `/user/${productResponse.data.market}`
-        );
-        setStoreName(storeResponse.data.name);
-        console.log(storeResponse.data);
-        setLoading(false);
+        const productResponse = await axiosConfige.get(`/product/${id}`).then((res) => {
+          setProduct(res.data.data);
+          setLoading(false);
+        });
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -43,6 +31,7 @@ export default function ProductView() {
     console.log(value);
     setSelectedRating(value);
   };
+  console.log(product);
 
   if (loading)
     return (
@@ -65,7 +54,7 @@ export default function ProductView() {
     <div className={Style.container}>
       <div className={Style.textContainer}>
         <h1>{product.title}</h1>
-        <p className={Style.marketName}> {storeName}</p>
+        <p className={Style.marketName}> اه</p>
         <p className={Style.description}> {product.description}</p>
         <h2 className={Style.price}>السعر: {product.price}</h2>
         <button> اصدار امر شراء</button>
@@ -90,7 +79,7 @@ export default function ProductView() {
         </div>
       </div>
       <div className={Style.imageContainer}>
-        <img src={product.image} alt={product.name} />
+        <img src={product.image.url} alt={product.name} />
       </div>
     </div>
   );

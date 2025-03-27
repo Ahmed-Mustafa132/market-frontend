@@ -1,23 +1,25 @@
-
-
 table {
     border: 1px solid var(--secondary-color);
     width: 90%;
     margin: auto
 }
+
 thead {
     background-color: var(--secondary-color);
     color: #fff;
 }
-th{
+
+th {
     padding: 10px 0;
- text-align: center;    
+    text-align: center;
 }
-td{
-        padding: 10px 0;
-            text-align: center;
+
+td {
+    padding: 10px 0;
+    text-align: center;
 }
-table .icon{
+
+table .icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,9 +27,11 @@ table .icon{
     font-size: 1.2rem;
     color: var(--secondary-color);
 }
-table .icon svg{
+
+table .icon svg {
     cursor: pointer;
 }
+
 main section {
     display: flex;
     justify-content: start;
@@ -36,11 +40,12 @@ main section {
     gap: 10px;
 }
 
-.massage{
+.massage {
     box-shadow: 0 0 6px 0 #E7EAF0 inset;
     width: 100%;
     padding: 20px;
 }
+
 .drower {
     position: absolute;
     top: 0;
@@ -52,6 +57,7 @@ main section {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .details {
     position: absolute;
     top: 0;
@@ -63,6 +69,7 @@ main section {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .details .detailsContainer {
     width: 50%;
     height: 50%;
@@ -71,25 +78,30 @@ main section {
     box-shadow: 0 0 6px 0 #E7EAF0;
     padding: 20px;
 }
+
 .details .detailsContainer .detailsItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
+
 .details .detailsContainer .detailsItem img {
     width: 20%;
     font-weight: bold;
 }
+
 .details .detailsContainer h1 {
     color: var(--secondary-color);
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
+
 .details .detailsContainer p {
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
+
 .details .detailsContainer button {
     background-color: var(--secondary-color);
     color: #fff;
@@ -98,13 +110,107 @@ main section {
     border-radius: 5px;
     cursor: pointer;
 }
+
 .details .detailsContainer button:hover {
     background-color: #fff;
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
 }
+
 .details .detailsContainer button:active {
     background-color: var(--secondary-color);
     color: #fff;
     border: none;
+}
+
+.detailsItemList {
+    margin: auto;
+}
+
+.detailsItemList ul li {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.addProduct {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: hsla(0, 0%, 0%, 0.1);
+    width: 100%;
+    height: 100vh;
+}
+
+.addProductForm {
+    width: 30%;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 10px;
+    box-shadow: #E7EAF0 0 0 2px 0;
+}
+.addProductFormContent{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+    margin: 10px 0;
+}
+.addProductFormContent label{
+    width: 20%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+.addProductFormContent input{
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E7EAF0;
+    outline: none;
+}
+
+.addProductFormContent input:focus{
+    box-shadow: #E7EAF0 0 0 2px 0 inset;
+}
+.addProductFormContent textarea{
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E7EAF0;
+    outline: none;
+}
+.addProductForm button{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E7EAF0;
+    outline: none;
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}   
+.addProductForm button:hover{
+    background-color: #fff;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+.addProductForm button:active{
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+}
+.prodactsContener{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    gap: 20px;
 }

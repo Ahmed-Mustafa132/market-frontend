@@ -13,13 +13,16 @@ export default function DashboardRepUnCompletMission() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   useEffect(() => {
-      axiosConfige.get("/mission/false").then((res) => {
-        setData(res.data.data);
-        setLoading(false);
-      }).catch((error) => {
-        setError(error.response.data);
-        setLoading(false);
-      });
+      axiosConfige
+        .get("/mission/state/false")
+        .then((res) => {
+          setData(res.data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error.response.data);
+          setLoading(false);
+        });
     
   }, []);
   const viewMission = async (id) => {

@@ -31,8 +31,9 @@ main{
     margin-right: 15%;
 display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start  ;
     width: 85%;
+    min-height: 90vh;
 }
 main section{
     width: 90%;
@@ -101,6 +102,29 @@ table{
     border-radius: 5px;
     padding: 10px 20px;
 }
+.filter{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: sticky;
+    top: 8%;
+    gap: 25px;
+    margin-bottom: 10px ;
+}
+.filter button{
+    max-width: max-content;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -.5%;
+    text-wrap:nowrap;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);

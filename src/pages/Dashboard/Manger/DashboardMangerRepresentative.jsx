@@ -32,7 +32,9 @@ export default function DashboardMangerRepresentative() {
   const mapRef = useRef(null);
   const [location, setLocation] = useState([]);
   const [showIdentity, setShowIdentity] = useState(false)
-  const [identity,setIdentity] = useState([])
+  const [identity, setIdentity] = useState([]);
+    const [showdetails, setShowDetails] = useState(false);
+    const [details, setDetails] = useState([]);
   const position = [
     location?.latitude || 30.0444,
     location?.longitude || 31.2357,
@@ -80,10 +82,10 @@ export default function DashboardMangerRepresentative() {
       console.log(error);
     }
   }, []);
-  const deleteMission = async (id) => {
-    if (window.confirm("هل أنت متأكد من حذف المهمة؟")) {
+  const deleteId = async (id) => {
+    if (window.confirm("هل أنت متأكد من حذف المندوب؟")) {
       axiosConfige
-        .delete(`/mission/${id}`)
+        .delete(`/auth/representative/${id}`)
         .then((res) => {
           setData(data.filter((item) => item.id !== id));
         })
@@ -91,14 +93,17 @@ export default function DashboardMangerRepresentative() {
           console.error(error);
         });
     }
-    console.log(id);
   };
-  const viewMission = async (id) => {
-    // axiosConfige.get(`/mission/${id}`).then((res)=>{
-    //     setMissionData(res.data)
-    // })
-    // showMission()
-    console.log(id);
+  const viewDetails = async (id) => {
+    try {
+      axiosConfige.get(`/auth/representative/${id}`).then((res) => {
+        setDetails(res.data);
+        setShowDetails(!showdetails);
+      });
+    } catch {
+      setError(error);
+      console.log(error);
+    }
   };
   const closeMap = () => {
     setShowMap(false); // إخفاء الخريطة عند استدعاء closeMap
@@ -163,8 +168,8 @@ export default function DashboardMangerRepresentative() {
                     </button>
                   </td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewMission(item.id)} />
-                    <FaTrashAlt onClick={() => deleteMission(item.id)} />
+                    <FaCheckSquare onClick={() => viewDetails(item.id)} />
+                    <FaTrashAlt onClick={() => deleteId(item.id)} />
                   </td>
                 </tr>
               );
@@ -216,6 +221,30 @@ export default function DashboardMangerRepresentative() {
               alt="img"
               style={{ width: "70%" }}
             />
+          </div>
+        )}
+        {showdetails && (
+          <div className={style.details}>
+            <div className={style.detailsContainer}>
+              <h1>تفاصيل المندوب</h1>
+              <div className={style.detailsContent}>
+                <div className={style.detailsItem}>
+                  <p>اسم المندوب</p>
+                  <p>{details.name}</p>
+                </div>
+                <div className={style.detailsItem}>
+                  <p> البريد الالكتروني</p>
+                  <p>{details.email}</p>
+                </div>{" "}
+                <div className={style.detailsItem}>
+                  <p> رقم الهاتف</p>
+                  <p>{details.phone}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowDetails(!showdetails)}>
+                اغلاق
+              </button>
+            </div>
           </div>
         )}
       </section>

@@ -3,12 +3,14 @@ import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import {  useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../Context/AuthContext";
+
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [auth,setAuth] = useState(false)
   const showDrower = () => {
     const drower = document.querySelector(`.${style.drawer}`);
     drower.classList.toggle(style.show);
@@ -17,7 +19,8 @@ export default function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  console.log("Navbar - isAuthenticated:", isAuthenticated);
+  console.log("Navbar - user:", user);
   return (
     <>
       <header>

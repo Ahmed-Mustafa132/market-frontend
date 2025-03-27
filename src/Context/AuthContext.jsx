@@ -1,17 +1,25 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axiosConfige from "../Config/axiosConfige";
-
+import { useNavigate } from "react-router-dom";
 // إنشاء السياق
 const AuthContext = createContext();
 
 // مزود السياق (Provider)
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   // دالة للتحقق من المصادقة
-const checkAuth = async () => {
+  const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+
   try {
-    const response = await axiosConfige.get("/auth/user/checkauth");
+      const response = await axiosConfige.get("/auth/user/checkauth", {
+        headers: {
+          Authorization: token,
+        },
+      });
+
     if (response.status === 200) {
       const userData = response.data;
       setUser(userData);
@@ -37,8 +45,9 @@ const checkAuth = async () => {
   const logout = async () => {
     try {
       // استدعاء نقطة نهاية تسجيل الخروج إذا كانت موجودة
-      localStorage.removeItem("token");
       setIsAuthenticated(false)
+      localStorage.removeItem("token");
+      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {

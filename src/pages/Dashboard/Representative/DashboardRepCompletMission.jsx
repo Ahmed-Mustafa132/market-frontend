@@ -12,7 +12,7 @@ export default function DashboardRepCompletMission() {
   const [error, setError] = useState();
   useEffect(() => {
     axiosConfige
-      .get("/mission/true")
+      .get("/mission/state/true")
       .then((res) => {
         setData(res.data.data);
         setLoading(false);

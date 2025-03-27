@@ -29,7 +29,7 @@ export default function Home() {
   };
     return (
       <section>
-        <div className={style.filter}>
+        <div className="filter">
           <button> الاكثر مبيعا</button>
           <button> المنتجات الجديدة</button>
         </div>

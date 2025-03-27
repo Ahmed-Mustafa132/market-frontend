@@ -1,7 +1,7 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import  { lazy, Suspense } from "react";
 import "./app.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./Context/AuthContext";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -14,11 +14,14 @@ const LoginMarket = lazy(() => import("./pages/Login/LoginMarket"));
 const LoginManger = lazy(() => import("./pages/Login/LoginManger"));
 const ProductView = lazy(() => import("./pages/ProductView/ProductView"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import AuthChecker from "./components/AuthChecker/AuthChecker";
+// representative import
+import SidebarRep from "./components/Sidebar/SidebarRep";
 import DashboardRepCompletMission from "./pages/Dashboard/Representative/DashboardRepCompletMission";
 import DashboardRepUnCompletMission from "./pages/Dashboard/Representative/DashboardRepUnCompletMission";
 import Massages from "./pages/Dashboard/DashboardRepMassage";
-import SidebarRep from "./components/Sidebar/SidebarRep";
-import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+// manger import 
 import SidebarManger from "./components/Sidebar/SidebarManger";
 import DashboardManger  from "./pages/Dashboard/Manger/DashboardManger"
 import DashboardMangerMission from "./pages/Dashboard/manger/DashboardMangerMission";
@@ -26,13 +29,25 @@ import DashboardMangerRepresentative from "./pages/Dashboard/manger/DashboardMan
 import DashboardMangerUsers from "./pages/Dashboard/manger/DashboardMangerUsers";
 import DashboardMangerMangers from "./pages/Dashboard/manger/DashboardMangerMangers";
 import DashboardMangerMarkets from "./pages/Dashboard/manger/DashboardMangerMarkets";
-import AuthChecker from "./components/AuthChecker/AuthChecker";
-
+// market import
+import SidebarMarket from "./components/Sidebar/SidebarMarket";
+import DashboardMarketCompletMission from "./pages/Dashboard/Market/DashboardMarketCompletMission";
+import DashboardMarketUnCompletMission from "./pages/Dashboard/Market/DashboardMarketUnCompletMission";
+import DashboardMarketProducts from "./pages/Dashboard/Market/DashboardMarketProducts";
+import DashboardMarket from "./pages/Dashboard/Market/DashboardMarket"
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
 
   return children;
 }
+const DashboardMarketLayout = ({ children }) => {
+  return (
+    <div>
+      <SidebarMarket />
+      {children}
+    </div>
+  );
+};
 
 const DashboardRepresentativeLayout = ({ children }) => {
   return (
@@ -94,11 +109,13 @@ export default function App() {
                 </DashboardRepresentativeLayout>
               }
             />
+            {/* manger Route  */}
             <Route
               path="/Dashboard/manger"
-              element={<DashboardMangerLayout>
-                <DashboardManger/>
-              </DashboardMangerLayout>
+              element={
+                <DashboardMangerLayout>
+                  <DashboardManger />
+                </DashboardMangerLayout>
               }
             />
             <Route
@@ -141,6 +158,31 @@ export default function App() {
                 </DashboardMangerLayout>
               }
             />
+            {/* market Route  */}
+            <Route path="/dashboard/market/" element={
+              <DashboardMarketLayout>
+                <DashboardMarket />
+              </DashboardMarketLayout>
+            }/>
+            <Route
+              path="/dashboard/market/completmission"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarketCompletMission />
+                </DashboardMarketLayout>
+              }
+            />
+            <Route path="/dashboard/market/uncompletmission" element={
+              <DashboardMarketLayout>
+                <DashboardMarketUnCompletMission />
+              </DashboardMarketLayout>
+            } />
+            <Route path="/dashboard/market/products" element={ 
+              <DashboardMarketLayout>
+                <DashboardMarketProducts />
+              </DashboardMarketLayout>
+            }/>
+            
           </Routes>
         </Suspense>
       </AuthProvider>

@@ -9,7 +9,8 @@ export default function DashboardMangerUsers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState(undefined);
-
+    const [showdetails, setShowDetails] = useState(false);
+    const [details, setDetails] = useState([]);
   useEffect(() => {
     try {
       axiosConfige
@@ -41,10 +42,10 @@ export default function DashboardMangerUsers() {
       });
   };
 
-  const deleteMission = async (id) => {
-    if (window.confirm("هل أنت متأكد من حذف المهمة؟")) {
+  const deleteId = async (id) => {
+    if (window.confirm("هل أنت متأكد من حذف المندوب؟")) {
       axiosConfige
-        .delete(`/mission/${id}`)
+        .delete(`/auth/user/${id}`)
         .then((res) => {
           setData(data.filter((item) => item.id !== id));
         })
@@ -52,14 +53,16 @@ export default function DashboardMangerUsers() {
           console.error(error);
         });
     }
-    console.log(id);
   };
-  const viewMission = async (id) => {
-    // axiosConfige.get(`/mission/${id}`).then((res)=>{
-    //     setMissionData(res.data)
-    // })
-    // showMission()
-    console.log(id);
+  const viewDetails = async (id) => {
+    try {
+      axiosConfige.get(`/auth/user/${id}`).then((res) => {
+        setDetails(res.data.data);
+        setShowDetails(!showdetails);
+      });
+    } catch {
+      setError(error.response.data.massage);
+    }
   };
 
   if (loading) return <LoadingSpinner />;
@@ -104,14 +107,34 @@ export default function DashboardMangerUsers() {
                     <button className="tableBtn">انشاء تقرير مبيعات</button>
                   </td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewMission(item.id)} />
-                    <FaTrashAlt onClick={() => deleteMission(item.id)} />
+                    <FaCheckSquare onClick={() => viewDetails(item._id)} />
+                    <FaTrashAlt onClick={() => deleteId(item.id)} />
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        {showdetails && (
+          <div className={style.details}>
+            <div className={style.detailsContainer}>
+              <h1>تفاصيل المندوب</h1>
+              <div className={style.detailsContent}>
+                <div className={style.detailsItem}>
+                  <p>اسم المندوب</p>
+                  <p>{details.name}</p>
+                </div>
+                <div className={style.detailsItem}>
+                  <p> البريد الالكتروني</p>
+                  <p>{details.email}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowDetails(!showdetails)}>
+                اغلاق
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </main>
   );
