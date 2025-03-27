@@ -10,6 +10,8 @@
     justify-content: space-evenly;
     flex-direction: column;
     color: var(--secondary-color);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
 }
 
 .sidebar .item {
@@ -26,7 +28,8 @@
 .sidebar div .icon {
     font-size: 1.7rem;
 }
-.drower{
+
+.drower {
     position: absolute;
     top: 0;
     right: 0;
@@ -36,4 +39,32 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        max-width: 70%;
+        transform: translateX(100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar .item {
+        font-size: 1.1rem;
+    }
+
+    .sidebar div .icon {
+        font-size: 1.5rem;
+    }
+}
+
+/* Small mobile styles */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        max-width: 85%;
+    }
 }
