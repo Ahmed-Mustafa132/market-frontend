@@ -26,7 +26,7 @@ import DashboardRepClients from "./pages/Dashboard/Representative/DashboardRepCl
 // manger import
 import SidebarManger from "./components/Sidebar/SidebarManger";
 import DashboardManger from "./pages/Dashboard/Manger/DashboardManger";
-import DashboardMangerMission from "./pages/Dashboard/manger/DashboardMangerMission";
+import DashboardMangerMission from "./pages/Dashboard/Manger/DashboardMangerMission";
 import DashboardMangerRepresentative from "./pages/Dashboard/Manger/DashboardMangerRepresentative";
 import DashboardMangerUsers from "./pages/Dashboard/Manger/DashboardMangerUsers";
 import DashboardMangerMangers from "./pages/Dashboard/Manger/DashboardMangerMangers";
