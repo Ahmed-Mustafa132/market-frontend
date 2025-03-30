@@ -27,10 +27,10 @@ import DashboardRepClients from "./pages/Dashboard/Representative/DashboardRepCl
 import SidebarManger from "./components/Sidebar/SidebarManger";
 import DashboardManger from "./pages/Dashboard/Manger/DashboardManger";
 import DashboardMangerMission from "./pages/Dashboard/manger/DashboardMangerMission";
-import DashboardMangerRepresentative from "./pages/Dashboard/manger/DashboardMangerRepresentative";
-import DashboardMangerUsers from "./pages/Dashboard/manger/DashboardMangerUsers";
-import DashboardMangerMangers from "./pages/Dashboard/manger/DashboardMangerMangers";
-import DashboardMangerMarkets from "./pages/Dashboard/manger/DashboardMangerMarkets";
+import DashboardMangerRepresentative from "./pages/Dashboard/Manger/DashboardMangerRepresentative";
+import DashboardMangerUsers from "./pages/Dashboard/Manger/DashboardMangerUsers";
+import DashboardMangerMangers from "./pages/Dashboard/Manger/DashboardMangerMangers";
+import DashboardMangerMarkets from "./pages/Dashboard/Manger/DashboardMangerMarkets";
 import DashboardMangerOrder from "./pages/Dashboard/Manger/DashboardMangerOrder";
 // market import
 import SidebarMarket from "./components/Sidebar/SidebarMarket";
