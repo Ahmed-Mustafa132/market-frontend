@@ -42,6 +42,25 @@
     z-index: 99;
 }
 
+.menuToggle {
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 0px;
+    background-color: var(--secondary-color, #333);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Mobile styles */
 @media screen and (max-width: 768px) {
     .sidebar {
@@ -60,6 +79,10 @@
     .sidebar div .icon {
         font-size: 1.5rem;
     }
+
+    .menuToggle {
+        display: flex;
+    }
 }
 
 /* Small mobile styles */
@@ -67,4 +90,21 @@
     .sidebar {
         max-width: 85%;
     }
+       .menuToggle {
+        display: flex; /* إظهار الزر فقط على الأجهزة المحمولة */
+    }
+}
+
+/* Map styles for SidebarRep */
+.map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
 }

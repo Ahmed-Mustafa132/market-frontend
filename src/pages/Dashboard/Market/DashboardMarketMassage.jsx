@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import axiosConfige from "../../Config/axiosConfige";
-import style from "./Dashboard.module.css";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-export default function Massages() {
+import axiosConfige from "../../../Config/axiosConfige";
+import style from "../Dashboard.module.css";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+export default function DashboardMarketMassage() {
   const [data, setData] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
-      axiosConfige.get("/massage").then((res) => {
+      axiosConfige.get("/massage/messages").then((res) => {
         setData(res.data.data);
         setLoading(false);
       });
@@ -27,11 +27,10 @@ export default function Massages() {
         <section>
               <h1>الرسائل</h1>
           {data.map((item) => {
-              console.log(item)
                 return (
                   <div className={style.massage} key={item._id}>
-                    <h1> من {item.manger[0].name}</h1>
-                    <p> {item.content}</p>
+                    <h1> من {item.manger.name}</h1>
+                    <p> {item.massage}</p>
                   </div>
                 );
             })}

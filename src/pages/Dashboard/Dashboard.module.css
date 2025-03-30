@@ -1,7 +1,7 @@
 table {
     border: 1px solid var(--secondary-color);
     width: 90%;
-    margin: auto
+    margin: auto;
 }
 
 thead {
@@ -56,6 +56,10 @@ main section {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
+}
+.drower img {
+    width: 40vw;
+    height: 35%;
 }
 
 .details {
@@ -154,20 +158,23 @@ main section {
     padding: 10px;
     box-shadow: #E7EAF0 0 0 2px 0;
 }
-.addProductFormContent{
+
+.addProductFormContent {
     display: flex;
     justify-content: start;
     align-items: start;
     gap: 10px;
     margin: 10px 0;
 }
-.addProductFormContent label{
+
+.addProductFormContent label {
     width: 20%;
     font-size: 1.1rem;
     font-weight: bold;
     color: var(--secondary-color);
 }
-.addProductFormContent input{
+
+.addProductFormContent input {
     width: 80%;
     padding: 10px;
     border-radius: 5px;
@@ -175,10 +182,11 @@ main section {
     outline: none;
 }
 
-.addProductFormContent input:focus{
+.addProductFormContent input:focus {
     box-shadow: #E7EAF0 0 0 2px 0 inset;
 }
-.addProductFormContent textarea{
+
+.addProductFormContent textarea {
     width: 80%;
     height: 100px;
     padding: 10px;
@@ -186,7 +194,8 @@ main section {
     border: 1px solid #E7EAF0;
     outline: none;
 }
-.addProductForm button{
+
+.addProductForm button {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -197,20 +206,506 @@ main section {
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-}   
-.addProductForm button:hover{
+}
+
+.addProductForm button:hover {
     background-color: #fff;
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
 }
-.addProductForm button:active{
+
+.addProductForm button:active {
     background-color: var(--secondary-color);
     color: #fff;
     border: none;
 }
-.prodactsContener{
+
+.prodactsContener {
     display: flex;
     justify-content: space-evenly;
     align-items: start;
     gap: 20px;
+}
+
+/* إضافة Media Queries للتوافق مع شاشات الموبايل */
+.addOrder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 2rem;
+
+}
+
+.addOrderForm {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    height: 80%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+}
+
+.addOrderFormHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.addOrderFormHeader button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.addOrderFormInput {
+    margin-bottom: 1.5rem;
+}
+
+.addOrderFormInput label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.addOrderFormInput select,
+.addOrderFormInput input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.addOrderForm button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.addOrderForm button:hover {
+    background: #0056b3;
+}
+
+.addOrderForm button:active {
+    background: #004494;
+    transform: scale(0.98);
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E7EAF0;
+    outline: none;
+}
+
+.customSelect {
+    position: relative;
+    width: 100%;
+}
+
+.customSelect input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.productList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.productItem {
+    padding: 0.75rem;
+    cursor: pointer;
+}
+
+.productItem:hover {
+    background: #f5f5f5;
+}
+
+.detailsContainer {
+    padding: 20px;
+}
+
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.detailRow span:first-child {
+    font-weight: bold;
+}
+.SendMassage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+.SendMassageContainer {
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: #E7EAF0 0 0 2px 0;
+    width: 50%;
+    height:50% ;
+    display: flex;
+    justify-content: center;
+    align-items: start  ;
+    gap: 20px;
+    flex-direction: column;
+}
+.SendMassageItem {
+    width: 80%;
+}
+.SendMassageItem textarea {
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E7EAF0;
+    outline: none;
+}
+.SendMassage button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.accountTogele {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.accountTogeleContainer {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accountTogeleContainer h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+}
+
+.accountTogeleContainer input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.accountTogeleContainer input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.accountTogele button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.accountTogele button:hover {
+    background-color: #3a7bc8;
+}
+
+/* For RTL support (since your text appears to be in Arabic) */
+.accountTogeleContainer h1,
+.accountTogeleContainer input,
+.accountTogele button {
+    direction: rtl;
+}
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    th,
+    td {
+        padding: 5px 2px;
+    }
+
+    table .icon {
+        gap: 10px;
+        font-size: 1rem;
+    }
+
+    .details .detailsContainer {
+        width: 90%;
+        height: auto;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
+    .details .detailsContainer h1 {
+        font-size: 1.2rem;
+    }
+
+    .details .detailsContainer p {
+        font-size: 0.9rem;
+    }
+
+    .addProductForm {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .addProductFormContent {
+        flex-direction: column;
+    }
+
+    .addProductFormContent label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .addProductFormContent input,
+    .addProductFormContent textarea {
+        width: 100%;
+    }
+
+    .prodactsContener {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* للشاشات الصغيرة جداً مثل الهواتف الصغيرة */
+@media screen and (max-width: 480px) {
+    table {
+        font-size: 0.7rem;
+    }
+
+    table .icon {
+        gap: 5px;
+        font-size: 0.9rem;
+    }
+
+    .details .detailsContainer {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .details .detailsContainer .detailsItem img {
+        width: 30%;
+    }
+}
+/* تنسيق النافذة المنبثقة لإضافة مدير */
+.addManger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    direction: rtl;
+}
+
+.addMangerContent {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.addMangerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.addMangerHeader h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.addMangerHeader button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.addMangerHeader button:hover {
+    color: #f44336;
+}
+
+.addMangerHeader i {
+    margin-left: 5px;
+    font-size: 1.2rem;
+}
+
+.addMangerBody {
+    padding: 20px;
+}
+
+.addMangerBodyInput {
+    margin-bottom: 15px;
+}
+
+.addMangerBodyInput label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.addMangerBodyInput input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.addMangerBodyInput input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.btnGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btnGroup label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f5f5f5;
+    border: 1px dashed #aaa;
+    border-radius: 4px;
+    padding: 15px;
+    cursor: pointer;
+    width: 48%;
+    min-height: 80px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.btnGroup label:hover {
+    background-color: #e9e9e9;
+    border-color: #888;
+}
+
+.IDBtn {
+    display: none;
+}
+
+.addMangerBody>button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addMangerBody>button:hover {
+    background-color: #3a7bc8;
+}
+
+/* تصميم متجاوب للشاشات الصغيرة */
+@media (max-width: 600px) {
+    .btnGroup label {
+        width: 100%;
+    }
+
+    .addMangerContent {
+        width: 95%;
+    }
 }

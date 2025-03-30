@@ -10,7 +10,7 @@ export default function Dashboard() {
     if (!isAuthenticated) {
       navigate("/");
     }
-    if (user == "manger") navigate("manger");
+    if (user == "manger"||user == "admin") navigate("manger/mission");
 
     if (user == "representative") navigate("representative");
 

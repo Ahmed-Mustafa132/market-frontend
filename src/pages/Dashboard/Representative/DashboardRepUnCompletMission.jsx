@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import { CiSearch } from "react-icons/ci";
-import { FaTrashAlt, FaCheckSquare } from "react-icons/fa";
+import { FaTrashAlt, FaEye  } from "react-icons/fa";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 
@@ -25,13 +25,7 @@ export default function DashboardRepUnCompletMission() {
         });
     
   }, []);
-  const viewMission = async (id) => {
-    // axiosConfige.get(`/mission/${id}`).then((res)=>{
-    //     setMissionData(res.data)
-    // })
-    // showMission()
-    console.log(id);
-  };
+
 
   if (loading) return <LoadingSpinner />
   if (error) return <h1 style={{textAlign:"center"}}>{error.massage}</h1>;  
@@ -66,8 +60,7 @@ export default function DashboardRepUnCompletMission() {
                   <td>{data.market}</td>
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewMission(data)} />
-                    <FaTrashAlt onClick={() => deleteMission(data.id)} />
+                    <FaEye  onClick={() => viewMission(data)} />
                   </td>
                 </tr>
               );

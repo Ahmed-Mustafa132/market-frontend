@@ -14,6 +14,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import axiosConfige from "../../Config/axiosConfige";
+import SidebarWrapper from "./SidebarWrapper";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -39,7 +40,6 @@ export default function SidebarRep() {
   const mapRef = useRef(null);
 
   const position = [
-
     location?.latitude || 30.0444,
     location?.longitude || 31.2357,
   ];
@@ -62,7 +62,7 @@ export default function SidebarRep() {
           setLocation(newLocation);
           setShowMap(true); // إظهار الخريطة عند تحديث الموقع
           console.log("تم تحديث الموقع:", newLocation);
-          uploudLocation()
+          uploudLocation();
         },
         (error) => {
           console.error("خطأ في تحديد الموقع:", error);
@@ -79,86 +79,78 @@ export default function SidebarRep() {
   };
 
   return (
-    <section>
-      <div className={style.sidebar}>
+    <SidebarWrapper>
+      <Link to="/dashboard/representative">
         <div className={style.item}>
           <div className={style.icon}>
             <FaHome />
           </div>
           <p>الرئيسية</p>
         </div>
+      </Link>
 
-        <Link to="/Dashboard/massages">
-          <div className={style.item}>
-            <div className={style.icon}>
-              <FaBell />
-            </div>
-            <p>التنبيهات</p>
+      <Link to="/dashboard/representative/massages">
+        <div className={style.item}>
+          <div className={style.icon}>
+            <FaBell />
           </div>
-        </Link>
+          <p>التنبيهات</p>
+        </div>
+      </Link>
 
-        <Link to="/dashboard/representative/completmission">
-          <div className={style.item}>
-            <div className={style.icon}>
-              <FaCheckSquare />
-            </div>
-            <p>المهام المكتملة</p>
+      <Link to="/dashboard/representative/completmission">
+        <div className={style.item}>
+          <div className={style.icon}>
+            <FaCheckSquare />
           </div>
-        </Link>
+          <p>المهام المكتملة</p>
+        </div>
+      </Link>
 
-        <Link to="/dashboard/representative/uncompletmission">
-          <div className={style.item}>
-            <div className={style.icon}>
-              <FaHourglassHalf />
-            </div>
-            <p>المهمام الجارية</p>
+      <Link to="/dashboard/representative/uncompletmission">
+        <div className={style.item}>
+          <div className={style.icon}>
+            <FaHourglassHalf />
           </div>
-        </Link>
-
+          <p>المهمام الجارية</p>
+        </div>
+      </Link>
+      <Link to="/dashboard/representative/clients">
         <div className={style.item}>
           <div className={style.icon}>
             <FaUsers />
           </div>
           <p>العملاء</p>
         </div>
-
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaShoppingCart />
-          </div>
-          <p>اضافة امر شراء</p>
+      </Link>
+      <div className={style.item} onClick={getLocation}>
+        <div className={style.icon}>
+          <FaMapMarkerAlt />
         </div>
-
-        <div className={style.item} onClick={getLocation}>
-          <div className={style.icon}>
-            <FaMapMarkerAlt />
-          </div>
-          <p>تحديد الموقع</p>
-        </div>
-
-        {showMap && (
-          <div className={style.map} onClick={closeMap}>
-            
-            {typeof window !== "undefined" && (
-              <MapContainer
-                center={position}
-                zoom={13}
-                style={{ height: "50%", width: "50%" }}
-                ref={mapRef}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <Marker position={position}>
-                  <Popup>موقع المندوب</Popup>
-                </Marker>
-                <ChangeMapView center={position} />
-              </MapContainer>
-            )}
-          </div>
-        )}
+        <p>تحديد الموقع</p>
       </div>
-    </section>
+
+      {showMap && (
+        <div className={style.map} onClick={closeMap}>
+          {typeof window !== "undefined" && (
+            <MapContainer
+              center={position}
+              zoom={13}
+              style={{ height: "50%", width: "50%" }}
+              ref={mapRef}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={position}>
+                <Popup>موقع المندوب</Popup>
+              </Marker>
+              <ChangeMapView center={position} />
+            </MapContainer>
+          )}
+        </div>
+      )}
+    </SidebarWrapper>
   );
 }

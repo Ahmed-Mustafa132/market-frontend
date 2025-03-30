@@ -10,7 +10,6 @@ export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [auth,setAuth] = useState(false)
   const showDrower = () => {
     const drower = document.querySelector(`.${style.drawer}`);
     drower.classList.toggle(style.show);
@@ -40,10 +39,8 @@ export default function Navbar() {
             )}
             <li>تواصل معنا</li>
             <li>تعرف علينا</li>
-            {isAuthenticated ? (
+            {isAuthenticated && user !== "user" && (
               <li onClick={() => navigate("/dashboard")}>لوحة التحكم </li>
-            ) : (
-              ""
             )}
             {isAuthenticated ? (
               <li onClick={() => logout()}>تسجيل الخروج</li>

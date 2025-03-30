@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import { CiSearch } from "react-icons/ci";
-import { FaTrashAlt, FaCheckSquare } from "react-icons/fa";
+import { FaTrashAlt, FaEye  } from "react-icons/fa";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function DashboardRepCompletMission() {
@@ -13,7 +13,7 @@ export default function DashboardRepCompletMission() {
     const [details, setDetails] = useState([]);
   useEffect(() => {
     axiosConfige
-      .get("/mission/state/false")
+      .get("/mission/state/true")
       .then((res) => {
         setData(res.data.data);
         setLoading(false);
@@ -25,18 +25,7 @@ export default function DashboardRepCompletMission() {
       });
   }, []);
     
-  const deleteId = async (id) => {
-    if (window.confirm("هل أنت متأكد من حذف المهمة؟")) {
-      axiosConfige
-        .delete(`/mission/${id}`)
-        .then((res) => {
-          setData(data.filter((item) => item.id !== id));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
+
     const viewDetails = async (id) => {
       try {
         
@@ -84,8 +73,7 @@ export default function DashboardRepCompletMission() {
                   <td>{data.representative}</td>
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewDetails(data.id)} />
-                    <FaTrashAlt onClick={() => deleteId(data.id)} />
+                    <FaEye  onClick={() => viewDetails(data.id)} />
                   </td>
                 </tr>
               );

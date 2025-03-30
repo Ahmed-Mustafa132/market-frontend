@@ -12,6 +12,8 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axiosConfige.get("/product").then((res) => {
@@ -27,16 +29,37 @@ export default function Home() {
     setSearchType(type);
     setIsDropdownOpen(false);
   };
+      const handelsearch = () => {
+      if (search == ""){ setSearch(undefined)};
+      axiosConfige
+        .get(`/product/search/${search}`)
+        .then((res) => {
+          setProducts(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setError(error.massage);
+        });
+    };
     return (
       <section>
         <div className="filter">
           <button> الاكثر مبيعا</button>
           <button> المنتجات الجديدة</button>
         </div>
-        <div className=
-        'search'>
-          <div className='searchInput'>
-            <input type="text" placeholder="بحث " name="search" />
+        <div className="search">
+          <div className="searchInput">
+            <input
+              type="text"
+              placeholder="بحث "
+              name="search"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                 handelsearch();
+                }
+              }}
+            />{" "}
             <label htmlFor="search">
               <CiSearch />
             </label>

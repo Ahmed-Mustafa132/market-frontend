@@ -89,10 +89,7 @@ export default function DashboardManger() {
     <main>
       <section>
         <div className={style.dashboardStats}>
-          <div className={style.statCard}>
-            <h2>إجمالي الأرباح</h2>
-            <p>5644</p>
-          </div>
+  
           <div className={style.statCard}>
             <h2>كل المهام</h2>
             <p>{dashboardStats.totalMissions}</p>
@@ -117,7 +114,7 @@ export default function DashboardManger() {
 
         <div className={style.dashboardChart}>
           <h3>إحصائيات عامة</h3>
-          <div style={{ height: "400px", width: "800px", margin: "auto" }}>
+          <div style={{ height: "80vh", width: "90%", margin: "auto" }}>
             <Bar data={statsChartData} options={options} />
           </div>
 

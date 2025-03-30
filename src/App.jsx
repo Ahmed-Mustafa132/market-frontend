@@ -1,4 +1,4 @@
-import  { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import "./app.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./Context/AuthContext";
@@ -18,23 +18,29 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import AuthChecker from "./components/AuthChecker/AuthChecker";
 // representative import
 import SidebarRep from "./components/Sidebar/SidebarRep";
+import DashboardRep from "./pages/Dashboard/Representative/DashboardRep";
 import DashboardRepCompletMission from "./pages/Dashboard/Representative/DashboardRepCompletMission";
 import DashboardRepUnCompletMission from "./pages/Dashboard/Representative/DashboardRepUnCompletMission";
-import Massages from "./pages/Dashboard/DashboardRepMassage";
-// manger import 
+import Massages from "./pages/Dashboard/Representative/DashboardRepMassage";
+import DashboardRepClients from "./pages/Dashboard/Representative/DashboardRepClients";
+// manger import
 import SidebarManger from "./components/Sidebar/SidebarManger";
-import DashboardManger  from "./pages/Dashboard/Manger/DashboardManger"
+import DashboardManger from "./pages/Dashboard/Manger/DashboardManger";
 import DashboardMangerMission from "./pages/Dashboard/manger/DashboardMangerMission";
 import DashboardMangerRepresentative from "./pages/Dashboard/manger/DashboardMangerRepresentative";
 import DashboardMangerUsers from "./pages/Dashboard/manger/DashboardMangerUsers";
 import DashboardMangerMangers from "./pages/Dashboard/manger/DashboardMangerMangers";
 import DashboardMangerMarkets from "./pages/Dashboard/manger/DashboardMangerMarkets";
+import DashboardMangerOrder from "./pages/Dashboard/Manger/DashboardMangerOrder";
 // market import
 import SidebarMarket from "./components/Sidebar/SidebarMarket";
 import DashboardMarketCompletMission from "./pages/Dashboard/Market/DashboardMarketCompletMission";
 import DashboardMarketUnCompletMission from "./pages/Dashboard/Market/DashboardMarketUnCompletMission";
 import DashboardMarketProducts from "./pages/Dashboard/Market/DashboardMarketProducts";
-import DashboardMarket from "./pages/Dashboard/Market/DashboardMarket"
+import DashboardMarket from "./pages/Dashboard/Market/DashboardMarket";
+import DashboardMarketClients from "./pages/Dashboard/Market/DashboardMarketClients";
+import DashboardMarketMassage from "./pages/Dashboard/Market/DashboardMarketMassage";
+import NotFound from "./pages/NotFound/NotFound";
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
 
@@ -85,6 +91,15 @@ export default function App() {
             <Route path="/register/market" element={<SingupMarket />} />
             <Route path="/register/user" element={<SingupUser />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            {/* Rep route */}
+            <Route
+              path="/dashboard/representative/"
+              element={
+                <DashboardRepresentativeLayout>
+                  <DashboardRep />
+                </DashboardRepresentativeLayout>
+              }
+            />
             <Route
               path="/dashboard/representative/completmission"
               element={
@@ -102,7 +117,15 @@ export default function App() {
               }
             />
             <Route
-              path="/Dashboard/massages"
+              path="dashboard/representative/clients"
+              element={
+                <DashboardRepresentativeLayout>
+                  <DashboardRepClients />
+                </DashboardRepresentativeLayout>
+              }
+            />
+            <Route
+            path="/Dashboard/representative/massages"
               element={
                 <DashboardRepresentativeLayout>
                   <Massages />
@@ -158,12 +181,23 @@ export default function App() {
                 </DashboardMangerLayout>
               }
             />
+            <Route
+              path="/dashboard/manger/orders"
+              element={
+                <DashboardMangerLayout>
+                  <DashboardMangerOrder />
+                </DashboardMangerLayout>
+              }
+            />
             {/* market Route  */}
-            <Route path="/dashboard/market/" element={
-              <DashboardMarketLayout>
-                <DashboardMarket />
-              </DashboardMarketLayout>
-            }/>
+            <Route
+              path="/dashboard/market/"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarket />
+                </DashboardMarketLayout>
+              }
+            />
             <Route
               path="/dashboard/market/completmission"
               element={
@@ -172,17 +206,39 @@ export default function App() {
                 </DashboardMarketLayout>
               }
             />
-            <Route path="/dashboard/market/uncompletmission" element={
-              <DashboardMarketLayout>
-                <DashboardMarketUnCompletMission />
-              </DashboardMarketLayout>
-            } />
-            <Route path="/dashboard/market/products" element={ 
-              <DashboardMarketLayout>
-                <DashboardMarketProducts />
-              </DashboardMarketLayout>
-            }/>
-            
+            <Route
+              path="/dashboard/market/uncompletmission"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarketUnCompletMission />
+                </DashboardMarketLayout>
+              }
+            />
+            <Route
+              path="/dashboard/market/products"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarketProducts />
+                </DashboardMarketLayout>
+              }
+            />
+            <Route
+              path="/dashboard/market/Clients"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarketClients />
+                </DashboardMarketLayout>
+              }
+            />
+            <Route
+              path="dashboard/market/massages"
+              element={
+                <DashboardMarketLayout>
+                  <DashboardMarketMassage />
+                </DashboardMarketLayout>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </AuthProvider>

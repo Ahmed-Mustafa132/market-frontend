@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaTrashAlt, FaCheckSquare, FaCheck } from "react-icons/fa";
+import { FaTrashAlt, FaEye , FaCheck } from "react-icons/fa";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
@@ -288,7 +288,7 @@ const completeMission = async (id) => {
                   <td>{item.market}</td>
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewDetails(item.id)} />
+                    <FaEye  onClick={() => viewDetails(item.id)} />
                     {!item.complete && (
                       <FaCheck
                         onClick={() => completeMission(item.id)}

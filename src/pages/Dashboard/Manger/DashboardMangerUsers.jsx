@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
-import { FaTrashAlt, FaCheckSquare } from "react-icons/fa";
+import { FaTrashAlt, FaEye  } from "react-icons/fa";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import { useAuth } from "../../../Context/AuthContext";
 
 export default function DashboardMangerUsers() {
+      const { isAuthenticated, user } = useAuth();
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -99,7 +102,7 @@ export default function DashboardMangerUsers() {
                 console.log(item);
               }
               return (
-                <tr key={item.id}>
+                <tr key={item._id}>
                   <td>{item.name}</td>
                   <td>0</td>
                   <td>0</td>
@@ -107,8 +110,10 @@ export default function DashboardMangerUsers() {
                     <button className="tableBtn">انشاء تقرير مبيعات</button>
                   </td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewDetails(item._id)} />
-                    <FaTrashAlt onClick={() => deleteId(item.id)} />
+                    <FaEye onClick={() => viewDetails(item._id)} />
+                    {isAuthenticated && user == "admin" && (
+                    <FaTrashAlt onClick={() => deleteId(item._id)} />
+                    )}
                   </td>
                 </tr>
               );

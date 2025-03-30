@@ -1,23 +1,33 @@
 import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
-import { FaTrashAlt, FaCheckSquare } from "react-icons/fa";
+import { FaTrashAlt, FaEye, FaCheck } from "react-icons/fa";
+import { BsChatDots } from "react-icons/bs";
+import { useAuth } from "../../../Context/AuthContext";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
-
 export default function DashboardMangerMarkets() {
+      const { isAuthenticated, user } = useAuth();
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showdetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState([]);
- const [search, setSearch] = useState(undefined);
+  const [search, setSearch] = useState(undefined);
+  const [SendMassage, setSendMassage] = useState(false);
+  const [marketId, setMarketId] = useState(null);
+  const [massage, setMassage] = useState("");
+    const [accountTogele, setAccountTogele] = useState(false);
+  const [account, setAccount] = useState([""]);
+  const [approved, setApproved] = useState(false);
   useEffect(() => {
     try {
       axiosConfige
-        .get("/auth/market")
+        .get("/auth/market/approved/true")
         .then((res) => {
           setData(res.data.data);
+          console.log(res.data.data);
           setLoading(false);
         })
         .catch((error) => {
@@ -29,19 +39,6 @@ export default function DashboardMangerMarkets() {
     }
   }, []);
 
-    const handelsearch = () => {
-      if (search == "") setSearch(undefined);
-      axiosConfige
-        .get(`/auth/market/searsh/${search}`)
-        .then((res) => {
-          console.log(res.data.data);
-          setData(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          setError(error.massage);
-        });
-    };
   const deleteId = async (id) => {
     if (window.confirm("هل أنت متأكد من حذف هذا  المتجر")) {
       axiosConfige
@@ -54,16 +51,87 @@ export default function DashboardMangerMarkets() {
   };
   const viewDetails = async (id) => {
     axiosConfige.get(`/auth/market/${id}`).then((res) => {
-      console.log(res.data.data); 
       setDetails(res.data.data);
       setShowDetails(!showdetails);
     });
   };
-    if (loading) return <LoadingSpinner />;
-    if (error) return <h1>{error}</h1>;
+  const massageSubmite = async () => {
+    const massageSend = {
+      id: marketId,
+      massage: massage,
+    };
+    try {
+      axiosConfige
+        .post(`/massage/sendMessages/market`, massageSend)
+        .then((res) => {
+          console.log(res.data.data);
+        });
+      setSendMassage(!SendMassage);
+    } catch (error) {
+      window.alert("حدث خطأ");
+    }
+  };
+  const viewSendMassage = async (id) => {
+    setMarketId(id);
+    setSendMassage(!SendMassage);
+  };
+   const openAccountTogele = (id) => {
+     setMarketId(id);
+     setAccountTogele(!accountTogele);
+   };
+   const SubmitAccount = () => {
+     const accountData = {
+       id: marketId,
+       account: account,
+     };
+     axiosConfige
+       .put(`/auth/market/account/`, accountData)
+       .then((res) => {
+         console.log(res.data);
+         setAccountTogele(false);
+       });
+  };
+  const approvedData = () => {
+    axiosConfige
+      .get("/auth/market/approved/true")
+      .then((res) => {
+        setData(res.data.data);
+        setApproved(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const UnApprovedData = () => {
+    axiosConfige
+      .get("/auth/market/approved/false")
+      .then((res) => {
+        setData(res.data.data);
+        setApproved(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const approvData = (id)=>{
+    axiosConfige.get(`/auth/market/approvedData/${id}`).then((res) => {
+      setData(data.filter((item) => item.id !== id));
+        })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  if (loading) return <LoadingSpinner />;
+  if (error) return <h1>{error}</h1>;
   return (
     <main>
       <section>
+        <div className="filter">
+          <button onClick={() => approvedData()}>  المتاجر    </button>
+          <button onClick={() => UnApprovedData()}>
+              المتاجر قيد الانتظار 
+          </button>
+        </div>
         <div className="search">
           <div className="searchInput">
             <input
@@ -82,7 +150,6 @@ export default function DashboardMangerMarkets() {
             <tr>
               <th>المتجر </th>
               <th> المهام</th>
-              <th>حجم المبيعات</th>
               <th> حسابات و ارصدة </th>
               <th>انشاء تقرير</th>
               <th>الاجراءات</th>
@@ -94,16 +161,26 @@ export default function DashboardMangerMarkets() {
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.missions}</td>
-                  <td>{item.totleSales}</td>
                   <td>
-                    <button className="tableBtn">حسابات و ارصدة</button>
+                    <button
+                      className="tableBtn"
+                      onClick={() => openAccountTogele(item.id)}
+                    >
+                      حسابات و ارصدة
+                    </button>
                   </td>
                   <td>
                     <button className="tableBtn">انشاء تقرير </button>
                   </td>
                   <td className={style.icon}>
-                    <FaCheckSquare onClick={() => viewDetails(item.id)} />
-                    <FaTrashAlt onClick={() => deleteId(item.id)} />
+                    {approved && (
+                      <FaCheck onClick={() => approvData(item.id)} />
+                    )}
+                    <BsChatDots onClick={() => viewSendMassage(item.id)} />
+                    <FaEye onClick={() => viewDetails(item.id)} />
+                    {isAuthenticated && user == "admin" && (
+                      <FaTrashAlt onClick={() => deleteId(item.id)} />
+                    )}
                   </td>
                 </tr>
               );
@@ -128,6 +205,11 @@ export default function DashboardMangerMarkets() {
                   <p>{details.email}</p>
                 </div>
                 <div className={style.detailsItem}>
+                  <p> الحساب</p>
+                  <p>{details.accounts}</p>
+                </div>
+
+                <div className={style.detailsItem}>
                   <p> السجل التجاري </p>
                   <img src={details.BusinessRecords} alt="img" />
                 </div>
@@ -140,6 +222,49 @@ export default function DashboardMangerMarkets() {
                 اغلاق
               </button>
             </div>
+          </div>
+        )}
+        {SendMassage && (
+          <div
+            className={style.SendMassage}
+            onClick={() => setSendMassage(!SendMassage)}
+          >
+            <div
+              className={style.SendMassageContainer}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h1>ارسال رسالة</h1>
+              <div className={style.SendMassageItem}>
+                <p>الرسالة</p>
+                <textarea
+                  name="message"
+                  id=""
+                  cols="30"
+                  rows="10"
+                  onChange={(e) => setMassage(e.target.value)}
+                ></textarea>
+              </div>
+              <button onClick={() => massageSubmite()}>ارسال الرسالة</button>
+            </div>
+          </div>
+        )}
+        {accountTogele && (
+          <div
+            className={style.accountTogele}
+            onClick={() => setAccountTogele(!accountTogele)}
+          >
+            <div
+              className={style.accountTogeleContainer}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h1>حسابات</h1>
+              <input
+                type="number"
+                placeholder=""
+                onChange={(e) => setAccount(e.target.value)}
+              />
+            </div>
+            <button onClick={() => SubmitAccount()}>ارسال</button>
           </div>
         )}
       </section>
