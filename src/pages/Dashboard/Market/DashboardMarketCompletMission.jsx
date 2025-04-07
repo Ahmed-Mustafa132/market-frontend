@@ -10,7 +10,9 @@ export default function DashboardRepCompletMission() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
     const [showdetails, setShowDetails] = useState(false);
-    const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState([]);
+    const [search, setSearch] = useState("");
+
   useEffect(() => {
     axiosConfige
       .get("/mission/state/true")
@@ -25,7 +27,17 @@ export default function DashboardRepCompletMission() {
       });
   }, []);
     
-
+      const handleSearch = () => {
+        axiosConfige
+          .get(`/mission/search/true?search=${search}`)
+          .then((res) => {
+            setData(res.data.data);
+            console.log(res.data.data);
+          })
+          .catch((error) => {
+            setError(error.response.data);
+          });
+      };
     const viewDetails = async (id) => {
       try {
         
@@ -46,9 +58,14 @@ export default function DashboardRepCompletMission() {
       <section>
         <div className="search">
           <div className="searchInput">
-            <input type="text" placeholder="بحث " name="search" />
-            <label htmlFor="search">
-              <CiSearch />
+            <input
+              type="text"
+              placeholder="بحث "
+              name="search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <label htmlFor="search" onClick={() => handleSearch()}>
+              <p>بحث</p>
             </label>
           </div>
         </div>
@@ -73,14 +90,14 @@ export default function DashboardRepCompletMission() {
                   <td>{data.representative}</td>
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
-                    <FaEye  onClick={() => viewDetails(data.id)} />
+                    <FaEye onClick={() => viewDetails(data.id)} />
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-    {showdetails && (
+        {showdetails && (
           <div className={style.details}>
             <div className={style.detailsContainer}>
               <h1>تفاصيل المهمة</h1>
@@ -99,7 +116,7 @@ export default function DashboardRepCompletMission() {
                 </div>
                 <div className={style.detailsItem}>
                   <p> الحالة</p>
-                  <p>{details.complete ?("مكتملة") : ("تحت التنفيذ")}</p>
+                  <p>{details.complete ? "مكتملة" : "تحت التنفيذ"}</p>
                 </div>
 
                 <div className={style.detailsItemList}>

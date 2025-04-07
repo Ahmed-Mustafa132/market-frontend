@@ -38,8 +38,17 @@ export default function ProductView() {
     fetchProductAndStore();
   }, [id]);
 
-  const handleRating = async (value) => {
-    setSelectedRating(value);
+  const handleRating = async (e) => {
+    console.log(e);
+    try {
+      await axiosConfige.post(`/product/${id}/review`, {
+        rating: e,
+      }).then((res) => {
+        alert("تم تقييم المنتج بنجاح");
+      });
+    }catch (err) {
+      console.log(err);
+    }
   };
   const showBuy = () => {
     if (isAuthenticated) {

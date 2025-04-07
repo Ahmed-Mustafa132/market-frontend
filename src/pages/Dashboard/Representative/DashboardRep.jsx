@@ -8,29 +8,21 @@ export default function DashboardManger() {
   const [dashboardStats, setDashboardStats] = useState([]);
   useEffect(() => {
     axiosConfig.get("/auth/representative/dashboard").then((res) => {
-      setDashboardStats(res.data.data.dashboardStats);
-      setTopMarkets(res.data.data.topMarkets);
-      setTopRepresentatives(res.data.data.topRepresentatives);
-      console.log(res.data.data);
+      setDashboardStats(res.data.data);
     });
   }, []);
-
 
   return (
     <main>
       <section>
         <div className={style.dashboardStats}>
           <div className={style.statCard}>
-            <h2>صافي الارباح </h2>
-            <p>5644</p>
+            <h2> اجمالي المستحقات</h2>
+            <p>{dashboardStats.accounts}</p>
           </div>
           <div className={style.statCard}>
-            <h2>المنتجات المباعة </h2>
-            <p>25</p>
-          </div>
-          <div className={style.statCard}>
-            <h2> العملاء</h2>
-            <p>10</p>
+            <h2> الطلابات</h2>
+            <p>{dashboardStats.orders}</p>
           </div>
           <div className={style.statCard}>
             <h2>المهام الغير مكتملة</h2>
@@ -44,7 +36,7 @@ export default function DashboardManger() {
             <h2>كل المهام</h2>
             <p>{dashboardStats.totalMissions}</p>
           </div>
-        </div>  
+        </div>
       </section>
     </main>
   );

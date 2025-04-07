@@ -89,7 +89,7 @@ export default function DashboardRepClients() {
       setSelectedOrder(res.data.data);
     });
     };
-    const handelsearch = (e) => {
+    const handelsearch = () => {
         if (search === "") {
             axiosConfig
                 .get(`/order`)

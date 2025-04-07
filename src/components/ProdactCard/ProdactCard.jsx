@@ -12,7 +12,7 @@ export default function ProdactCard({ product }) {
         <div className={style.priceAndRate}>
           <p className={style.rate}>
             {" "}
-            {product.rate} <MdOutlineStar />
+            {product.averageRating} <MdOutlineStar />
           </p>
           <p>${product.price}</p>
         </div>

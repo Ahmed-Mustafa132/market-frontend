@@ -330,7 +330,7 @@ const completeMission = async (id) => {
                   <ul>
                     {details.products.map((item) => {
                       return (
-                        <li key={item.product.id}>
+                        <li key={item.product._id}>
                           <p>{item.product.title}</p>
                           <p>{item.quantity}</p>
                         </li>

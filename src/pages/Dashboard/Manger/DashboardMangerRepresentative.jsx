@@ -59,10 +59,13 @@ export default function DashboardMangerRepresentative() {
       axiosConfige
         .post(`/massage/sendMessages/representative`, massageSend)
         .then((res) => {
-          console.log(res.data.data);
+          console.log(res.data);
+        }).catch((error) => {
+          console.log(error);
         });
       setSendMassage(!SendMassage);
     } catch (error) {
+      console.log(error)
       window.alert("حدث خطأ");
     }
   };
