@@ -46,7 +46,7 @@ export default function DashboardMangerUsers() {
   };
 
   const deleteId = async (id) => {
-    if (window.confirm("هل أنت متأكد من حذف المندوب؟")) {
+    if (window.confirm("هل أنت متأكد من حذف المستخدم")) {
       axiosConfige
         .delete(`/auth/user/${id}`)
         .then((res) => {
@@ -112,7 +112,7 @@ export default function DashboardMangerUsers() {
                   <td className={style.icon}>
                     <FaEye onClick={() => viewDetails(item._id)} />
                     {isAuthenticated && user == "admin" && (
-                    <FaTrashAlt onClick={() => deleteId(item._id)} />
+                      <FaTrashAlt onClick={() => deleteId(item._id)} />
                     )}
                   </td>
                 </tr>
@@ -123,10 +123,10 @@ export default function DashboardMangerUsers() {
         {showdetails && (
           <div className={style.details}>
             <div className={style.detailsContainer}>
-              <h1>تفاصيل المندوب</h1>
+              <h1>تفاصيل المستخدم</h1>
               <div className={style.detailsContent}>
                 <div className={style.detailsItem}>
-                  <p>اسم المندوب</p>
+                  <p>اسم المستخدم</p>
                   <p>{details.name}</p>
                 </div>
                 <div className={style.detailsItem}>

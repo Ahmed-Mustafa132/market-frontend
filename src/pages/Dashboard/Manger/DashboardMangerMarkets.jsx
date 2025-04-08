@@ -14,7 +14,7 @@ export default function DashboardMangerMarkets() {
   const [error, setError] = useState(null);
   const [showdetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState([]);
-  const [search, setSearch] = useState(undefined);
+  const [search, setSearch] = useState("");
   const [SendMassage, setSendMassage] = useState(false);
   const [marketId, setMarketId] = useState(null);
   const [massage, setMassage] = useState("");
