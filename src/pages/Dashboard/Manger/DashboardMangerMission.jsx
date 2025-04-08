@@ -25,21 +25,21 @@ export default function DashboardMangerMission() {
   const [markets, setMarkets] = useState([]);
   const [representatives, setRepresentatives] = useState([]);
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchMissions();
 
     // Fetch markets, representatives, and products when component mounts
     axiosConfige
-      .get("/auth/market")
+      .get("/auth/market/approved/true")
       .then((res) => setMarkets(res.data.data))
       .catch((err) => console.error(err));
 
     axiosConfige
-      .get("/auth/representative")
+      .get("/auth/representative/approved/true")
       .then((res) => setRepresentatives(res.data.data))
       .catch((err) => console.error(err));
-
     axiosConfige
       .get("/product")
       .then((res) => setProducts(res.data.data))
@@ -235,7 +235,20 @@ const completeMission = async (id) => {
       alert("حدث خطأ أثناء تغيير حالة المهمة");
     }
   }
-};
+  };
+  
+  const handleSearch = () => {
+          axiosConfige
+            .get(`/mission/search/true?search=${search}`)
+            .then((res) => {
+              console.log(res.data.data);
+              setData(res.data.data);
+            })
+            .catch((error) => {
+              console.log(error)
+              setError(error.response.massage);
+            });
+        };
   // Find product name by ID
   const getProductName = (productId) => {
     const product = products.find((p) => p._id === productId);
@@ -254,12 +267,16 @@ const completeMission = async (id) => {
             مهام تحت التنفيذ
           </button>
           <button onClick={() => addMission()}> اضافة مهمة </button>
-          <button> انشاء تقرير </button>
         </div>
         <div className="search">
           <div className="searchInput">
-            <input type="text" placeholder="بحث " name="search" />
-            <label htmlFor="search">
+            <input
+              type="text"
+              placeholder="بحث "
+              name="search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <label htmlFor="search" onClick={() => handleSearch()}>
               <p>بحث</p>
             </label>
           </div>
@@ -288,7 +305,7 @@ const completeMission = async (id) => {
                   <td>{item.market}</td>
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
-                    <FaEye  onClick={() => viewDetails(item.id)} />
+                    <FaEye onClick={() => viewDetails(item.id)} />
                     {!item.complete && (
                       <FaCheck
                         onClick={() => completeMission(item.id)}

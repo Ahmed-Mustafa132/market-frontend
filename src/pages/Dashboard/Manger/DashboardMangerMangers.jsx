@@ -119,7 +119,16 @@ const handelSubmite = (e) => {
        console.log(res.data);
        setAccountTogele(false);
      });
-   };
+  };
+  const deleteManger = (id) => {
+    if (window.confirm("هل انت متأكد من حذف هذا المدير؟")) {
+      axiosConfige.delete(`/auth/manger/${id}`).then((res) => {
+        setData((prevData) => prevData.filter((item) => item.id !== id));
+      });
+    }else{
+      return;
+    }
+  };
   if (loading) return <LoadingSpinner />;
   if (error) return <h1>{error}</h1>;
   return (
@@ -166,7 +175,7 @@ const handelSubmite = (e) => {
                   </td>
                   <td className={style.icon}>
                     <FaEye onClick={() => viewDetails(item.id)} />
-                    <FaTrashAlt />
+                    <FaTrashAlt onClick={() => deleteManger(item.id)} />
                   </td>
                 </tr>
               );

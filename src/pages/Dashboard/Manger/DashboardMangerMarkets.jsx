@@ -151,7 +151,6 @@ export default function DashboardMangerMarkets() {
               <th>المتجر </th>
               <th> المهام</th>
               <th> حسابات و ارصدة </th>
-              <th>انشاء تقرير</th>
               <th>الاجراءات</th>
             </tr>
           </thead>
@@ -168,9 +167,6 @@ export default function DashboardMangerMarkets() {
                     >
                       حسابات و ارصدة
                     </button>
-                  </td>
-                  <td>
-                    <button className="tableBtn">انشاء تقرير </button>
                   </td>
                   <td className={style.icon}>
                     {approved && (
