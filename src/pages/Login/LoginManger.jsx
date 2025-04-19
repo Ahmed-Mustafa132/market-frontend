@@ -26,7 +26,7 @@ export default function Login() {
       navigate("/dashboard")
     } catch (err) {
       setLoading(false);
-      setError(err.response.data);
+      setError(err.response.data.message);
     }
   };
   return (

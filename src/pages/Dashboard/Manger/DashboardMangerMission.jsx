@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaTrashAlt, FaEye , FaCheck } from "react-icons/fa";
+import { FaTrashAlt, FaTimesCircle, FaEye, FaCheck } from "react-icons/fa";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
@@ -99,7 +99,7 @@ export default function DashboardMangerMission() {
         setLoading(false);
       })
       .catch((error) => {
-        setError(error.response.data);
+        setError(error.response.data.message);
         setLoading(false);
       });
   };
@@ -248,7 +248,8 @@ const completeMission = async (id) => {
               console.log(error)
               setError(error.response.massage);
             });
-        };
+  };
+  console.log(data);
   // Find product name by ID
   const getProductName = (productId) => {
     const product = products.find((p) => p._id === productId);
@@ -256,7 +257,7 @@ const completeMission = async (id) => {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <h1>{error}</h1>;
+  // if (error) return <h1>{error}</h1>;
 
   return (
     <main>
@@ -306,13 +307,17 @@ const completeMission = async (id) => {
                   <td>{totalQuantity}</td>
                   <td className={style.icon}>
                     <FaEye onClick={() => viewDetails(item.id)} />
-                    {!item.complete && (
-                      <FaCheck
-                        onClick={() => completeMission(item.id)}
-                        style={{ color: "green", cursor: "pointer" }}
-                        title="تغيير الحالة إلى مكتملة"
-                      />
-                    )}
+                    {!item.complete ? (
+                      !item.approved ? (
+                        <FaTimesCircle />
+                      ) : (
+                        <FaCheck
+                          onClick={() => completeMission(item.id)}
+                          style={{ color: "green", cursor: "pointer" }}
+                          title="تغيير الحالة إلى مكتملة"
+                        />
+                      )
+                    ) : null}
                     <FaTrashAlt onClick={() => deleteId(item.id)} />
                   </td>
                 </tr>
