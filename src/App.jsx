@@ -32,6 +32,8 @@ import DashboardMangerUsers from "./pages/Dashboard/Manger/DashboardMangerUsers"
 import DashboardMangerMangers from "./pages/Dashboard/Manger/DashboardMangerMangers";
 import DashboardMangerMarkets from "./pages/Dashboard/Manger/DashboardMangerMarkets";
 import DashboardMangerOrder from "./pages/Dashboard/Manger/DashboardMangerOrder";
+import DashboardMangerProducts from "./pages/Dashboard/Manger/DashboardMangerProducts";
+
 // market import
 import SidebarMarket from "./components/Sidebar/SidebarMarket";
 import DashboardMarketCompletMission from "./pages/Dashboard/Market/DashboardMarketCompletMission";
@@ -125,7 +127,7 @@ export default function App() {
               }
             />
             <Route
-            path="/Dashboard/representative/massages"
+              path="/Dashboard/representative/massages"
               element={
                 <DashboardRepresentativeLayout>
                   <Massages />
@@ -186,6 +188,14 @@ export default function App() {
               element={
                 <DashboardMangerLayout>
                   <DashboardMangerOrder />
+                </DashboardMangerLayout>
+              }
+            />
+            <Route
+              path="/dashboard/manger/Products"
+              element={
+                <DashboardMangerLayout>
+                  <DashboardMangerProducts />
                 </DashboardMangerLayout>
               }
             />

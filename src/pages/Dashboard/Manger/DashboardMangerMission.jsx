@@ -41,7 +41,7 @@ export default function DashboardMangerMission() {
       .then((res) => setRepresentatives(res.data.data))
       .catch((err) => console.error(err));
     axiosConfige
-      .get("/product")
+      .get("/product/approved/true")
       .then((res) => setProducts(res.data.data))
       .catch((err) => console.error(err));
   }, []);

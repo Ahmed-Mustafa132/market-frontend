@@ -698,6 +698,302 @@ textarea {
 .addMangerBody>button:hover {
     background-color: #3a7bc8;
 }
+/* Product Details Modal Styles */
+.productDetailsOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.productDetailsModal {
+  background-color: white;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  direction: rtl;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.productDetailsContent {
+  display: flex;
+  padding: 20px;
+}
+
+.productImageContainer {
+  flex: 0 0 40%;
+  padding: 10px;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 6px 0 #E7EAF0;
+}
+
+.productInfo {
+  flex: 0 0 60%;
+  padding: 10px 20px;
+}
+
+.productInfo h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: var(--secondary-color);
+}
+
+.marketName {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.description {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.reviews {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.reviews h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--secondary-color);
+}
+
+.reviewItem {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editButton, .deleteButton, .approveButton, .saveButton, .cancelButton {
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  border: 1px solid;
+  transition: all 0.3s ease;
+}
+
+.editButton {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+}
+
+.editButton:hover {
+  background-color: white;
+  color: var(--secondary-color);
+}
+
+.deleteButton {
+  background-color: #e63946;
+  color: white;
+  border-color: #e63946;
+}
+
+.deleteButton:hover {
+  background-color: white;
+  color: #e63946;
+}
+
+.approveButton {
+  background-color: #2a9d8f;
+  color: white;
+  border-color: #2a9d8f;
+}
+
+.approveButton:hover {
+  background-color: white;
+  color: #2a9d8f;
+}
+
+.saveButton {
+  background-color: #2a9d8f;
+  color: white;
+  border-color: #2a9d8f;
+}
+
+.saveButton:hover {
+  background-color: white;
+  color: #2a9d8f;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+
+.cancelButton:hover {
+  background-color: white;
+  color: #6c757d;
+}
+
+/* Form styles for editing */
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+.formGroup input, 
+.formGroup textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #E7EAF0;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.formGroup input:focus, 
+.formGroup textarea:focus {
+  box-shadow: 0 0 6px 0 #E7EAF0 inset;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Loading state for buttons */
+.loadingButton {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Success message */
+.successMessage {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* Error message */
+.errorMessage {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* No results message */
+.noResults {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+/* Responsive styles for product details */
+@media screen and (max-width: 768px) {
+  .productDetailsContent {
+    flex-direction: column;
+  }
+  
+  .productImageContainer,
+  .productInfo {
+    flex: 0 0 100%;
+  }
+  
+  .reviewItem {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .actionButtons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .productDetailsModal {
+    width: 95%;
+    max-height: 80vh;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .productInfo h2 {
+    font-size: 20px;
+  }
+  
+  .reviews h3 {
+    font-size: 16px;
+  }
+  
+  .editButton, .deleteButton, .approveButton, .saveButton, .cancelButton {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
 
 /* تصميم متجاوب للشاشات الصغيرة */
 @media (max-width: 600px) {

@@ -12,28 +12,6 @@
     display: inline-block;
 }
 
-.searchDropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 200px;
-    margin-top: 5px;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.searchDropdown div {
-    padding: 12px 16px;
-    cursor: pointer;
-    text-align: right;
-}
-
-.searchDropdown div:hover {
-    background-color: #f5f5f5;
-}
 @media screen and (max-width: 768px){
     .filter{
         gap: 100px;

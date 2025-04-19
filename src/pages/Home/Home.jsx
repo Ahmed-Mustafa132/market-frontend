@@ -9,26 +9,20 @@ export default function Home() {
   const navigate = useNavigate();
 
   const [searchType, setSearchType] = useState([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axiosConfige.get("/product").then((res) => {
-      setProducts(res.data.data);
-      setLoading(false);
-    });
+    const fetchData = async () => {
+      axiosConfige.get("/product/approved/true").then((res) => {
+        setProducts(res.data.data);
+        setLoading(false);
+      });
+    }
+    fetchData();
   }, []); 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-  
-  const selectSearchType = (type) => {
-    setSearchType(type);
-    setIsDropdownOpen(false);
-  };
       const handelsearch = () => {
       if (search == ""){ setSearch(undefined)};
       axiosConfige
@@ -56,7 +50,7 @@ export default function Home() {
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                 handelsearch();
+                  handelsearch();
                 }
               }}
             />{" "}
@@ -65,19 +59,9 @@ export default function Home() {
             </label>
           </div>
           <div className={style.searchTypeContainer}>
-            <p onClick={toggleDropdown} style={{ cursor: "pointer" }}>
-              البحث في {searchType}
+            <p onClick={()=>handelsearch()} style={{ cursor: "pointer" }}>
+              بحث
             </p>
-            {isDropdownOpen && (
-              <div className={style.searchDropdown}>
-                <div onClick={() => selectSearchType("المنتجات")}>
-                  بحث عن المنتجات
-                </div>
-                <div onClick={() => selectSearchType("المتاجر")}>
-                  بحث عن المتاجر
-                </div>
-              </div>
-            )}
           </div>
         </div>
         <div className={style.products}>

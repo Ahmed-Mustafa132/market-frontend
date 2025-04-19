@@ -6,7 +6,7 @@ import {
   FaUserCog,
   FaStore,
   FaHome,
-  FaBox
+  FaBox,FaShoppingBag 
 } from "react-icons/fa";
 import style from "./Sidebar.module.css";
 import SidebarWrapper from "./SidebarWrapper";
@@ -81,6 +81,16 @@ export default function SidebarManger() {
           <p> الطلبات </p>
         </div>
       </Link>
+      {isAuthenticated && user === "admin" && (
+        <Link to={"/dashboard/manger/products"}>
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaShoppingBag />
+            </div>
+            <p> المنتجات</p>
+          </div>
+        </Link>
+      )}
     </SidebarWrapper>
   );
 }

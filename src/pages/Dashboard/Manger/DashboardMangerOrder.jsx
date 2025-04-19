@@ -26,16 +26,20 @@ export default function DashboardRepClients() {
   });
   const [approvdData, setApprovedData] = useState(false);
   useEffect(() => {
-    axiosConfig
-      .get("/order")
-      .then((res) => {
-        setData(res.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.response.data);
-        setLoading(false);
-      });
+    try {
+      
+      axiosConfig
+        .get("/order")
+        .then((res) => {
+          setData(res.data.data);
+          setLoading(false);
+        })
+    } catch (error) { 
+      console.log(error);
+      setError(error.response.data.massage);
+      setLoading(false);
+
+    }
   }, []);
   const handelSubmet = async () => {
     const orderSubmit = {
@@ -58,13 +62,14 @@ export default function DashboardRepClients() {
     setShowAddOrder(!showAddOrder);
     try {
       axiosConfig
-        .get(`/product`)
+        .get(`/product/approved/true`)
         .then((res) => {
           setProductData(res.data.data);
           setLoading(false);
         })
         .catch((error) => {
-          setError(error.response.data);
+          
+          setError(error.response.massage);
           setLoading(false);
         });
     } catch (error) {
@@ -155,12 +160,14 @@ export default function DashboardRepClients() {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (error)
+  if (error) 
+    
     return (
       <main style={{ textAlign: "center" }}>
-        <section>{error.message}</section>
+        <section>{error}</section>
       </main>
     );
+  
   return (
     <main>
       <section>
