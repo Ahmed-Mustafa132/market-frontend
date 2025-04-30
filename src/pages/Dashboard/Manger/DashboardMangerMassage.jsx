@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-export default function DashboardRepMassage() {
+export default function DashboardMarketMassage() {
   const [data, setData] = useState([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [massage, setMassage] = useState();
   const [SendMassage, setSendMassage] = useState(false);
-  const [MangerID, setMangerID] = useState(null);
-
+  const [fromModel, setFromModel] = useState(null);
+  const [fromID, setFromID] = useState(null);
   useEffect(() => {
     try {
-      axiosConfige.get("/massage/messages").then((res) => {
+      axiosConfige.get("/massage/manger").then((res) => {
         setData(res.data.data);
         setLoading(false);
       });
@@ -21,24 +21,28 @@ export default function DashboardRepMassage() {
       setError(error);
     }
   }, []);
-  const massageSubmite = async () => {
+
+  const massageSubmite = async ( ) => {
     const massageSend = {
-      managerId: MangerID,
+      id: fromID,
       massage: massage,
     };
     try {
       axiosConfige
-        .post(`/massage/sendMessages/manger`, massageSend)
+        .post(`/massage/sendMessages/${fromModel}`, massageSend)
         .then((res) => {
-          console.log(res.data.data);
+          setSendMassage(false);
+          setMassage("");
+          setSendMassage(!SendMassage)
         });
-      setSendMassage(!SendMassage);
     } catch (error) {
-      window.alert("حدث خطأ");
+      console.log(error)
     }
   };
-  const openSendMassage = (id) => {
-    setMangerID(id);
+
+  const openSendMassage = (fromModel, fromID) => {
+    setFromModel(fromModel);
+    setFromID(fromID);
     setSendMassage(!SendMassage);
   };
   if (loading) return <LoadingSpinner />;
@@ -51,11 +55,11 @@ export default function DashboardRepMassage() {
         {data.map((item) => {
           return (
             <div className={style.massage} key={item.id}>
-              <h1> من {item.manger.name}</h1>
+              <h1> من {item.from}</h1>
               <p> {item.massage}</p>
               <button
                 className={style.replyButton}
-                onClick={() => openSendMassage(item.manger._id)}
+                onClick={() => openSendMassage(item.fromModel, item.fromID)}
               >
                 رد
               </button>

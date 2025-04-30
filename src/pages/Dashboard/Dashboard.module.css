@@ -44,6 +44,20 @@ main section {
     box-shadow: 0 0 6px 0 #E7EAF0 inset;
     width: 100%;
     padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.replyButton {
+    background: var(--secondary-color);
+    color: #fff;
+    align-self: flex-end;
+    border: 0;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .drower {

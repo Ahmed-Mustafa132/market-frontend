@@ -14,17 +14,20 @@ export default function DashboardRepUnCompletMission() {
       const [search, setSearch] = useState("");
   
   useEffect(() => {
-    axiosConfige
-      .get("/mission/state/false")
-      .then((res) => {
-        setData(res.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.response.data);
-        setLoading(false);
-        console.error(error);
-      });
+    const fetchData = () => {
+      axiosConfige
+        .get("/mission/state/false")
+        .then((res) => {
+          setData(res.data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error.response.data);
+          setLoading(false);
+          console.error(error);
+        });
+    }
+    fetchData();
   }, []);
     
 

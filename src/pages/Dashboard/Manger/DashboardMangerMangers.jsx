@@ -300,7 +300,6 @@ const handelSubmite = (e) => {
         )}
         {showdetails && (
           <div className={style.details}>
-            {console.log(details)}
             <div className={style.detailsContainer}>
               <h1>تفاصيل المدير</h1>
               <div className={style.detailsContent}>

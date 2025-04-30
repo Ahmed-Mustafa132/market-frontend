@@ -6,15 +6,17 @@ import {
   FaUserCog,
   FaStore,
   FaHome,
-  FaBox,FaShoppingBag 
+  FaBox,
+  FaShoppingBag,
+  FaBell,
 } from "react-icons/fa";
 import style from "./Sidebar.module.css";
 import SidebarWrapper from "./SidebarWrapper";
 import { useAuth } from "../../Context/AuthContext";
 
 export default function SidebarManger() {
-    const { isAuthenticated, user } = useAuth();
- 
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <SidebarWrapper>
       {isAuthenticated && user === "admin" && (
@@ -27,7 +29,14 @@ export default function SidebarManger() {
           </div>
         </Link>
       )}
-
+      <Link to="/Dashboard/manger/massages">
+        <div className={style.item}>
+          <div className={style.icon}>
+            <FaBell />
+          </div>
+          <p>التنبيهات</p>
+        </div>
+      </Link>
       <Link to="/Dashboard/manger/mission">
         <div className={style.item}>
           <div className={style.icon}>
