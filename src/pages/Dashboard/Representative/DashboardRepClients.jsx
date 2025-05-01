@@ -61,7 +61,7 @@ export default function DashboardRepClients() {
     setShowAddOrder(!showAddOrder);
     try {
       axiosConfig
-        .get(`/product`)
+        .get(`/product/approved/true`)
         .then((res) => {
           setProductData(res.data.data);
           setLoading(false);
