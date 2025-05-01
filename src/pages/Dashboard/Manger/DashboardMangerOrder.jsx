@@ -175,9 +175,9 @@ export default function DashboardRepClients() {
           <button onClick={() => showAddOrderFun()}> اضافة امر شراء</button>
           <button onClick={() => showUnApproveData()}>
             {" "}
-            الطلابات في الانتظار
+            الطلبات في الانتظار
           </button>
-          <button onClick={() => showApprovedData()}> الطلابات المعتمدة</button>
+          <button onClick={() => showApprovedData()}> الطلبات المعتمدة</button>
         </div>
         <div className="search">
           <div className="searchInput">
