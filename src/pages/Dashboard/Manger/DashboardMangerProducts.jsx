@@ -16,6 +16,7 @@ export default function DashboardMangerProduct() {
   const [approved, setApproved] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const getData = async (state) => {
     await axiosConfige
@@ -94,25 +95,33 @@ export default function DashboardMangerProduct() {
   };
 
   const handleSaveEdit = async () => {
+    // Create a FormData object
+    const formData = {
+      title: selectedProduct.title,
+      description: selectedProduct.description,
+      price: selectedProduct.price,
+      market: selectedProduct.market,
+      image: selectedFile,
+    };
     try {
-      await axiosConfige.patch(
-        `/product/${selectedProduct._id}`,
-        selectedProduct
-      );
-      // Update the product in the data array
-      setData(
-        data.map((item) =>
-          item._id === selectedProduct._id ? selectedProduct : item
-        )
-      );
+      // Use FormData in the request
+      await axiosConfige.patch(`/product/${selectedProduct._id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      getData(approved);
       setIsEditing(false);
       alert("تم تحديث المنتج بنجاح");
+      console.log(formData);
     } catch (error) {
       console.error("Error updating product:", error);
       alert("حدث خطأ أثناء تحديث المنتج");
     }
   };
-
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSelectedProduct({
@@ -126,18 +135,18 @@ export default function DashboardMangerProduct() {
     setSelectedProduct(null);
     setIsEditing(false);
   };
-    const handelsearch = () => {
-      if (search == "") setSearch(undefined);
-      axiosConfige
-        .get(`/product/search/${search}`)
-        .then((res) => {
-          console.log(res.data.data);
-          setData(res.data.data);
-        })
-        .catch((error) => {
-          setError(error.massage);
-        });
-    };
+  const handelsearch = () => {
+    if (search == "") setSearch(undefined);
+    axiosConfige
+      .get(`/product/search/${search}`)
+      .then((res) => {
+        console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        setError(error.massage);
+      });
+  };
 
   if (loading) return <LoadingSpinner />;
   if (error) return <h1>{error}</h1>;
@@ -214,6 +223,44 @@ export default function DashboardMangerProduct() {
                         />
                       </div>
 
+                      {/* Add file input for image upload */}
+                      <div className={style.formGroup}>
+                        <label>الصورة:</label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                        />
+                        {selectedProduct.image && !selectedFile && (
+                          <div className={style.currentImage}>
+                            <p>الصورة الحالية:</p>
+                            <img
+                              src={selectedProduct.image.url}
+                              alt="Current product"
+                              style={{
+                                width: "100px",
+                                height: "auto",
+                                marginTop: "5px",
+                              }}
+                            />
+                          </div>
+                        )}
+                        {selectedFile && (
+                          <div className={style.previewImage}>
+                            <p>الصورة الجديدة:</p>
+                            <img
+                              src={URL.createObjectURL(selectedFile)}
+                              alt="Preview"
+                              style={{
+                                width: "100px",
+                                height: "auto",
+                                marginTop: "5px",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+
                       <div className={style.actionButtons}>
                         <button
                           className={style.saveButton}
@@ -223,7 +270,10 @@ export default function DashboardMangerProduct() {
                         </button>
                         <button
                           className={style.cancelButton}
-                          onClick={() => setIsEditing(false)}
+                          onClick={() => {
+                            setIsEditing(false);
+                            setSelectedFile(null);
+                          }}
                         >
                           إلغاء
                         </button>
@@ -295,40 +345,39 @@ export default function DashboardMangerProduct() {
             </tr>
           </thead>
           <tbody>
-            {data
-              .map((item) => {
-                return (
-                  <tr key={item._id}>
-                    <td>{item.title}</td>
-                    <td>{item.market}</td>
-                    <td>{item.averageRating || "لا يوجد"}</td>
-                    <td className={style.icon}>
-                      {!approved && (
-                        <FaCheck
-                          onClick={() => approvData(item._id)}
-                          title="الموافقة على المنتج"
-                        />
-                      )}
-                      <FaEye
-                        onClick={() => viewDetails(item._id)}
-                        title="عرض التفاصيل"
+            {data.map((item) => {
+              return (
+                <tr key={item._id}>
+                  <td>{item.title}</td>
+                  <td>{item.market}</td>
+                  <td>{item.averageRating || "لا يوجد"}</td>
+                  <td className={style.icon}>
+                    {!approved && (
+                      <FaCheck
+                        onClick={() => approvData(item._id)}
+                        title="الموافقة على المنتج"
                       />
-                      <FaEdit
-                        onClick={() => {
-                          viewDetails(item._id).then(() => setIsEditing(true));
-                        }}
-                        title="تعديل المنتج"
+                    )}
+                    <FaEye
+                      onClick={() => viewDetails(item._id)}
+                      title="عرض التفاصيل"
+                    />
+                    <FaEdit
+                      onClick={() => {
+                        viewDetails(item._id).then(() => setIsEditing(true));
+                      }}
+                      title="تعديل المنتج"
+                    />
+                    {isAuthenticated && user === "admin" && (
+                      <FaTrashAlt
+                        onClick={() => deleteId(item._id)}
+                        title="حذف المنتج"
                       />
-                      {isAuthenticated && user === "admin" && (
-                        <FaTrashAlt
-                          onClick={() => deleteId(item._id)}
-                          title="حذف المنتج"
-                        />
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </section>
