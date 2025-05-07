@@ -18,7 +18,11 @@ export default function Home() {
     const fetchData = async () => {
       axiosConfige.get("/product/approved/true").then((res) => {
         setProducts(res.data.data);
+        console.log(res.data)
         setLoading(false);
+      }).catch((error) => {
+        console.log(error);
+        setError(error.massage);
       });
     }
     fetchData();
@@ -28,13 +32,16 @@ export default function Home() {
       axiosConfige
         .get(`/product/search/${search}`)
         .then((res) => {
+
           setProducts(res.data.data);
         })
         .catch((error) => {
           console.log(error);
           setError(error.massage);
         });
-    };
+  };
+  if (error) return <div>{error}</div>;
+
     return (
       <section>
         <div className="filter">
