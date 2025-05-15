@@ -27,3 +27,4 @@ src/axiosConfige/axiosConfige.js
 *.sln
 *.sw?
 .env
+.env

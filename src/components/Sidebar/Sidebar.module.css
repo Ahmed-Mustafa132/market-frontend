@@ -60,6 +60,19 @@
     z-index: 101;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+/* Map styles for SidebarRep */
+.map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
 
 /* Mobile styles */
 @media screen and (max-width: 768px) {
@@ -93,18 +106,4 @@
        .menuToggle {
         display: flex; /* إظهار الزر فقط على الأجهزة المحمولة */
     }
-}
-
-/* Map styles for SidebarRep */
-.map {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
 }

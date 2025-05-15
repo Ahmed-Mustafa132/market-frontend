@@ -79,78 +79,80 @@ export default function SidebarRep() {
   };
 
   return (
-    <SidebarWrapper>
-      <Link to="/dashboard/representative">
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaHome />
+    <>
+      <SidebarWrapper>
+        <Link to="/dashboard/representative">
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaHome />
+            </div>
+            <p>الرئيسية</p>
           </div>
-          <p>الرئيسية</p>
-        </div>
-      </Link>
+        </Link>
 
-      <Link to="/dashboard/representative/massages">
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaBell />
+        <Link to="/dashboard/representative/massages">
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaBell />
+            </div>
+            <p>التنبيهات</p>
           </div>
-          <p>التنبيهات</p>
-        </div>
-      </Link>
+        </Link>
 
-      <Link to="/dashboard/representative/completmission">
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaCheckSquare />
+        <Link to="/dashboard/representative/completmission">
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaCheckSquare />
+            </div>
+            <p>المهام المكتملة</p>
           </div>
-          <p>المهام المكتملة</p>
-        </div>
-      </Link>
+        </Link>
 
-      <Link to="/dashboard/representative/uncompletmission">
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaHourglassHalf />
+        <Link to="/dashboard/representative/uncompletmission">
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaHourglassHalf />
+            </div>
+            <p>المهمام الجارية</p>
           </div>
-          <p>المهمام الجارية</p>
-        </div>
-      </Link>
-      <Link to="/dashboard/representative/clients">
-        <div className={style.item}>
-          <div className={style.icon}>
-            <FaUsers />
+        </Link>
+        <Link to="/dashboard/representative/clients">
+          <div className={style.item}>
+            <div className={style.icon}>
+              <FaUsers />
+            </div>
+            <p>العملاء</p>
           </div>
-          <p>العملاء</p>
+        </Link>
+        <div className={style.item} onClick={getLocation}>
+          <div className={style.icon}>
+            <FaMapMarkerAlt />
+          </div>
+          <p>تحديد الموقع</p>
         </div>
-      </Link>
-      <div className={style.item} onClick={getLocation}>
-        <div className={style.icon}>
-          <FaMapMarkerAlt />
-        </div>
-        <p>تحديد الموقع</p>
-      </div>
 
-      {showMap && (
-        <div className={style.map} onClick={closeMap}>
-          {typeof window !== "undefined" && (
-            <MapContainer
-              center={position}
-              zoom={13}
-              style={{ height: "50%", width: "50%" }}
-              ref={mapRef}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker position={position}>
-                <Popup>موقع المندوب</Popup>
-              </Marker>
-              <ChangeMapView center={position} />
-            </MapContainer>
-          )}
-        </div>
-      )}
-    </SidebarWrapper>
+      </SidebarWrapper>
+        {showMap && (
+          <div className={style.map} onClick={closeMap}>
+            {typeof window !== "undefined" && (
+              <MapContainer
+                center={position}
+                zoom={13}
+                style={{ height: "50%", width: "50%" }}
+                ref={mapRef}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <Marker position={position}>
+                  <Popup>موقع المندوب</Popup>
+                </Marker>
+                <ChangeMapView center={position} />
+              </MapContainer>
+            )}
+          </div>
+        )}
+    </>
   );
 }
