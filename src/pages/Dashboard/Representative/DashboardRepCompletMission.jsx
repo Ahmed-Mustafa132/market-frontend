@@ -44,7 +44,7 @@ export default function DashboardRepCompletMission() {
       });
     } catch (error) {
       setError(error);
-      console.log(error);
+       
     }
   };
 

@@ -36,7 +36,7 @@ export default function DashboardMarketMassage() {
           setSendMassage(!SendMassage)
         });
     } catch (error) {
-      console.log(error)
+       
     }
   };
 

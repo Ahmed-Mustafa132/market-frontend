@@ -35,7 +35,7 @@ export default function DashboardMangerMarkets() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   }, []);
 
@@ -99,7 +99,7 @@ export default function DashboardMangerMarkets() {
         setApproved(false);
       })
       .catch((error) => {
-        console.log(error);
+         
       });
   };
   const UnApprovedData = () => {
@@ -110,7 +110,7 @@ export default function DashboardMangerMarkets() {
         setApproved(true);
       })
       .catch((error) => {
-        console.log(error);
+         
       });
   };
   const approvData = (id)=>{
@@ -118,7 +118,7 @@ export default function DashboardMangerMarkets() {
       setData(data.filter((item) => item.id !== id));
         })
     .catch((error) => {
-      console.log(error);
+       
     });
   }
   if (loading) return <LoadingSpinner />;

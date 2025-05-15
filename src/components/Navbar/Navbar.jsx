@@ -14,12 +14,10 @@ export default function Navbar() {
     const drower = document.querySelector(`.${style.drawer}`);
     drower.classList.toggle(style.show);
   };
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  console.log("Navbar - isAuthenticated:", isAuthenticated);
-  console.log("Navbar - user:", user);
+
   return (
     <>
       <header>

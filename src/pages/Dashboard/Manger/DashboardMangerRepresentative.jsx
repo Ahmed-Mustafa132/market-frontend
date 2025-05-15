@@ -61,11 +61,11 @@ export default function DashboardMangerRepresentative() {
         .then((res) => {
           console.log(res.data);
         }).catch((error) => {
-          console.log(error);
+           
         });
       setSendMassage(!SendMassage);
     } catch (error) {
-      console.log(error)
+       
       window.alert("حدث خطأ");
     }
   };
@@ -83,7 +83,7 @@ export default function DashboardMangerRepresentative() {
         setData(res.data.data);
       })
       .catch((error) => {
-        console.log(error);
+         
         setError(error.massage);
       });
   };
@@ -113,7 +113,7 @@ export default function DashboardMangerRepresentative() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   }, []);
   const deleteId = async (id) => {
@@ -136,7 +136,7 @@ export default function DashboardMangerRepresentative() {
       });
     } catch {
       setError(error);
-      console.log(error);
+       
     }
   };
   const closeMap = () => {
@@ -169,7 +169,7 @@ export default function DashboardMangerRepresentative() {
           setApproved(false);
         })
         .catch((error) => {
-          console.log(error);
+           
         });
     };
     const UnApprovedData = () => {
@@ -180,7 +180,7 @@ export default function DashboardMangerRepresentative() {
           setApproved(true);
         })
         .catch((error) => {
-          console.log(error);
+           
         });
   };
    const approvData = (id) => {
@@ -190,7 +190,7 @@ export default function DashboardMangerRepresentative() {
          setData(data.filter((item) => item.id !== id));
        })
        .catch((error) => {
-         console.log(error);
+          
        });
    };
   if (loading) return <LoadingSpinner />;

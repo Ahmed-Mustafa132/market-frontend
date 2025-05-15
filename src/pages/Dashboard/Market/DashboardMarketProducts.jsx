@@ -37,11 +37,11 @@ export default function DashboardProdacte() {
         .catch((error) => {
           setError(error.data);
           setLoading(false);
-          console.log(error);
+           
         });
     } catch (error) {
       setLoading(false);
-      console.log(error);
+       
     }
   }, []);
   const showAdd = () => {

@@ -43,7 +43,7 @@ export default function DashboardRepUnCompletMission() {
       });
     } catch (error) {
       setError(error);
-      console.log(error);
+       
     }
   };
   const rejectedMission = (id) => {
@@ -54,7 +54,7 @@ export default function DashboardRepUnCompletMission() {
         });
       } catch (error) {
         setError(error);
-        console.log(error);
+         
       }
     }
   };

@@ -59,7 +59,7 @@ export default function DashboardMangerMission() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   };
 
@@ -112,7 +112,7 @@ export default function DashboardMangerMission() {
       });
     } catch (error) {
       setError(error);
-      console.log(error);
+       
     }
   };
 
@@ -245,7 +245,7 @@ const completeMission = async (id) => {
               setData(res.data.data);
             })
             .catch((error) => {
-              console.log(error)
+               
               setError(error.response.massage);
             });
   };

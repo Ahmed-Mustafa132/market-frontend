@@ -98,7 +98,7 @@ const Singuprep = () => {
       console.log(response);
       setSubmitMessage({ type: "success", message: "تم التسجيل بنجاح" });
     } catch (error) {
-      console.log(error);
+       
       setSubmitMessage({
         type: "error",
         message: error.response?.data?.massage || "حدث خطأ اثناء التسجيل",

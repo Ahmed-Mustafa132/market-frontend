@@ -35,7 +35,7 @@ export default function DashboardRepClients() {
           setLoading(false);
         })
     } catch (error) { 
-      console.log(error);
+       
       setError(error.response.data.massage);
       setLoading(false);
 
@@ -54,7 +54,7 @@ export default function DashboardRepClients() {
       const response = await axiosConfig.post("/order", orderSubmit);
       setShowAddOrder(false);
     } catch (error) {
-      console.log(error);
+       
     }
   };
 
@@ -73,7 +73,7 @@ export default function DashboardRepClients() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   };
   const handleInputChange = (e) => {

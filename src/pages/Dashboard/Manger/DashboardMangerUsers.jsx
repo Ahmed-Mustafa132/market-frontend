@@ -27,7 +27,7 @@ export default function DashboardMangerUsers() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   }, []);
 
@@ -40,7 +40,7 @@ export default function DashboardMangerUsers() {
         setData(res.data.data);
       })
       .catch((error) => {
-        console.log(error);
+         
         setError(error.massage);
       });
   };

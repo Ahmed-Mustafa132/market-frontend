@@ -21,7 +21,7 @@ export default function Home() {
         console.log(res.data)
         setLoading(false);
       }).catch((error) => {
-        console.log(error);
+         
         setError(error.massage);
       });
     }
@@ -36,7 +36,7 @@ export default function Home() {
           setProducts(res.data.data);
         })
         .catch((error) => {
-          console.log(error);
+           
           setError(error.massage);
         });
   };

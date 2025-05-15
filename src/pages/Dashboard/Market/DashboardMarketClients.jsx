@@ -55,7 +55,7 @@ export default function DashboardRepClients() {
                 .catch((error) => {
                     setError(error.response.data);
                     setLoading(false);
-                    console.log(error);
+                     
                 });
         }
     };

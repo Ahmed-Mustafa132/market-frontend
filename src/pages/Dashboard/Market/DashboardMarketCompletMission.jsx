@@ -47,7 +47,7 @@ export default function DashboardRepCompletMission() {
         });
       } catch {
         setError(error)
-        console.log(error)
+         
       }
     };
   if (loading) return <LoadingSpinner />;

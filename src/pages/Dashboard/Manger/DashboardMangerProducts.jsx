@@ -26,7 +26,7 @@ export default function DashboardMangerProduct() {
         setApproved(state);
       })
       .catch((error) => {
-        console.log(error);
+         
       });
   };
 

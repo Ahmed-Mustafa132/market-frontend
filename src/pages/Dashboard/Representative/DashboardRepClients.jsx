@@ -52,7 +52,7 @@ export default function DashboardRepClients() {
       console.log(response.data);
       setShowAddOrder(false);
     } catch (error) {
-      console.log(error);
+       
     }
     setShowAddOrder(false);
   };
@@ -71,7 +71,7 @@ export default function DashboardRepClients() {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+       
     }
   };
   const handleInputChange = (e) => {

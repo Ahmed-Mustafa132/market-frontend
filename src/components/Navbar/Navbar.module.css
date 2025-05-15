@@ -97,6 +97,7 @@ header nav ul li{
         background: #fff;
         height: calc(100vh - 60px);
         transition: 0.3s ease;
+        gap: 10px
     }
 
     header nav ul.active {
@@ -107,6 +108,7 @@ header nav ul li{
         margin: 20px 0;
         width: 100%;
         text-align: center;
+        cursor: pointer;
     }
 
     .logo img {
@@ -122,5 +124,8 @@ header nav ul li{
     }
     .drawer{
         width: 100%;
+    }
+    .drawer div {
+        gap: 5px;
     }
 }
