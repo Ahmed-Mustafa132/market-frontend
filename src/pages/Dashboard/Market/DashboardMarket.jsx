@@ -4,12 +4,21 @@ import axiosConfig from "../../../Config/axiosConfige";
 
 export default function DashboardManger() {
   const [dashboardStats, setDashboardStats] = useState([]);
+  const [error, setError] = useState(false);
   useEffect(() => {
-    axiosConfig.get("/auth/market/dashboard").then((res) => {
-      setDashboardStats(res.data.data);
-      console.log(res.data.data);
-    });
+    try {
+    
+      axiosConfig.get("/auth/market/dashboard").then((res) => {
+        setDashboardStats(res.data.data);
+        console.log(res.data.data);
+      });
+    } catch (error) { 
+      setError(error.response.data.message);
+    }
   }, []);
+  if (error) {
+    return <div className={style.error}>{error}</div>;
+  }
 
   return (
     <main>
