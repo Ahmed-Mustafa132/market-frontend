@@ -63,10 +63,36 @@ const Singuprep = () => {
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
 
-    if (type === "file") {
+    if (type === "file" && files && files.length > 0) {
+      // التحقق من نوع الملف وحجمه
+      const file = files[0];
+      const fileType = file.type;
+      const fileSize = file.size / 1024 / 1024; // تحويل إلى MB
+
+      if (!fileType.startsWith("image/")) {
+        setErrors((prev) => ({ ...prev, [name]: "يجب أن يكون الملف صورة" }));
+        return;
+      }
+
+      if (fileSize > 5) {
+        // حد أقصى 5 ميجابايت
+        setErrors((prev) => ({
+          ...prev,
+          [name]: "حجم الصورة كبير جداً (الحد الأقصى 5 ميجابايت)",
+        }));
+        return;
+      }
+
+      // إزالة أي خطأ سابق لهذا الحقل
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+
       setFormData({
         ...formData,
-        [name]: files[0],
+        [name]: file,
       });
     } else {
       setFormData({
@@ -75,10 +101,11 @@ const Singuprep = () => {
       });
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-console.log(formData)
+
     if (!validateForm()) {
       setSubmitMessage({ type: "error", message: "يرجى تصحيح الأخطاء" });
       return;
@@ -87,9 +114,36 @@ console.log(formData)
     setIsLoading(true);
     try {
       const formDataToSend = new FormData();
-      Object.keys(formData).forEach((key) => {
-        formDataToSend.append(key, formData[key]);
-      });
+
+      // إضافة البيانات النصية
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("password", formData.password);
+      formDataToSend.append("phone", formData.phone);
+
+      // معالجة خاصة للصور
+      if (formData.identityFront) {
+        // تحويل الصورة إلى Blob إذا لزم الأمر
+        const frontBlob =
+          formData.identityFront instanceof Blob
+            ? formData.identityFront
+            : await fetch(URL.createObjectURL(formData.identityFront)).then(
+                (r) => r.blob()
+              );
+
+        formDataToSend.append("identityFront", frontBlob, "identity_front.jpg");
+      }
+
+      if (formData.identityBack) {
+        const backBlob =
+          formData.identityBack instanceof Blob
+            ? formData.identityBack
+            : await fetch(URL.createObjectURL(formData.identityBack)).then(
+                (r) => r.blob()
+              );
+
+        formDataToSend.append("identityBack", backBlob, "identity_back.jpg");
+      }
 
       const response = await axiosConfige.post(
         "/auth/representative/register",
@@ -105,9 +159,6 @@ console.log(formData)
         type: "success",
         message: "تم التسجيل بنجاح!",
       });
-
-      // يمكن إضافة التوجيه هنا بعد التسجيل الناجح
-      // navigate('/login');
     } catch (error) {
       console.error("Error during registration:", error);
       setSubmitMessage({
@@ -118,6 +169,7 @@ console.log(formData)
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className={style.container}>
@@ -214,6 +266,7 @@ console.log(formData)
               className={style.IDBtn}
               onChange={handleChange}
               accept="image/*"
+              capture="environment" // إضافة خاصية capture للتحكم في مصدر الصورة
             />
             <label htmlFor="identityFront">
               صورة البطاقة الشخصية <br /> من الامام
@@ -229,6 +282,7 @@ console.log(formData)
               className={style.IDBtn}
               onChange={handleChange}
               accept="image/*"
+              capture="environment" // إضافة خاصية capture للتحكم في مصدر الصورة
             />
             <label htmlFor="identityBack">
               صورة البطاقة الشخصية <br /> من الخلف
