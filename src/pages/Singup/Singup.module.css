@@ -176,6 +176,54 @@ form{
     font-size: 3rem;
     color: var(--secondary-color);
 }
+.imageUploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .imagePreview {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .previewImage {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .passwordInputContainer {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+  
+  .passwordInputContainer input {
+    flex: 1;
+  }
+  
+  .passwordToggle {
+    position: absolute;
+    left: 10px; /* للتنسيق من اليسار لأن النص بالعربية */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 14px;
+    padding: 5px;
+  }
+  
+  .passwordToggle:hover {
+    color: #000;
+  }
+  
 
 /* Media Queries */
 @media (max-width: 600px) {

@@ -16,6 +16,14 @@ const ProductView = lazy(() => import("./pages/ProductView/ProductView"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import AuthChecker from "./components/AuthChecker/AuthChecker";
+// reset password import
+import ForgotPasswordRep from "./pages/ForgotPassword/ForgotPasswordRep";
+import ForgotPasswordUser from "./pages/ForgotPassword/ForgotPassworduser";
+import ForgotPasswordMarket from "./pages/ForgotPassword/ForgotPasswordMarket";
+import ResetPasswordRep from "./pages/ForgotPassword/ResetPasswordRep";
+import ResetPasswordUser from "./pages/ForgotPassword/ResetPasswordUser";
+import ResetPasswordMarket from "./pages/ForgotPassword/ResetPasswordMarket";
+
 // representative import
 import SidebarRep from "./components/Sidebar/SidebarRep";
 import DashboardRep from "./pages/Dashboard/Representative/DashboardRep";
@@ -89,11 +97,41 @@ export default function App() {
             <Route path="/login/representative" element={<LoginRep />} />
             <Route path="/login/market" element={<LoginMarket />} />
             <Route path="/login/manger" element={<LoginManger />} />
-            {/* singup  */}
+
+            {/* singUp  */}
+
             <Route path="/register/representative" element={<SingupRep />} />
             <Route path="/register/market" element={<SingupMarket />} />
             <Route path="/register/user" element={<SingupUser />} />
             <Route path="/dashboard" element={<Dashboard />} />
+
+            {/* forgot password  */}
+
+            <Route
+              path="/forgot-password/representative"
+              element={<ForgotPasswordRep />}
+            />
+              <Route
+                path="/forgot-password/user"  
+                element={<ForgotPasswordUser />}
+              />
+              <Route
+                path="/forgot-password/market"
+                element={<ForgotPasswordMarket />}
+              />
+            <Route
+              path="/reset-password/representative/:token"
+              element={<ResetPasswordRep />}
+            />
+            <Route
+              path="/reset-password/market/:token"
+              element={<ResetPasswordMarket />}
+            />
+            <Route
+              path="/reset-password/user/:token"  
+              element={<ResetPasswordUser />}
+            />
+
             {/* Rep route */}
             <Route
               path="/dashboard/representative/"

@@ -4,7 +4,7 @@ import axiosConfige from "../../Config/axiosConfige";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [manger, setManger] = useState({
@@ -18,12 +18,12 @@ export default function Login() {
     try {
       setLoading(true);
       const res = await axiosConfige.post("/auth/manger/login", manger);
-            localStorage.setItem("token", res.data.token);
-      console.log(res);
+
+      localStorage.setItem("token", res.data.token);
       setLoading(false);
-    
       setError(null);
-      navigate("/dashboard")
+      navigate("/dashboard");
+      window.location.reload();
     } catch (err) {
       setLoading(false);
       setError(err.response.data.message);
@@ -49,7 +49,7 @@ export default function Login() {
             type="button"
             className={Style.submitBtn}
             onClick={handelSubmit}
-            >
+          >
             {loading ? "جاري التسجيل" : "تسجيل الدخول"}
           </button>
         </form>

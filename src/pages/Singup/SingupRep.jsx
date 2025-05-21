@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./Singup.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../Config/axiosConfige";
 import { Link } from "react-router-dom";
+import imageCompression from "browser-image-compression"; // استيراد مكتبة ضغط الصور
 
 const Singuprep = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +19,36 @@ const Singuprep = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState({ type: "", message: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [previewUrls, setPreviewUrls] = useState({
+    identityFront: null,
+    identityBack: null,
+  });
+
+  // تنظيف عناوين URL المعاينة عند إلغاء تحميل المكون
+  useEffect(() => {
+    return () => {
+      if (previewUrls.identityFront) {
+        URL.revokeObjectURL(previewUrls.identityFront);
+      }
+      if (previewUrls.identityBack) {
+        URL.revokeObjectURL(previewUrls.identityBack);
+      }
+    };
+  }, [previewUrls]);
+
+  // دالة لتبديل حالة إظهار/إخفاء كلمة السر
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // دالة لتبديل حالة إظهار/إخفاء تأكيد كلمة السر
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+  // دالة للتحقق من صحة النموذج
   const validateForm = () => {
     const newErrors = {};
 
@@ -60,7 +90,24 @@ const Singuprep = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
+  // دالة لضغط الصور
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // الحد الأقصى للحجم بالميجابايت
+      maxWidthOrHeight: 1920, // الحد الأقصى للعرض أو الارتفاع
+      useWebWorker: true, // استخدام Web Worker لتحسين الأداء
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("فشل ضغط الصورة:", error);
+      return file; // إرجاع الملف الأصلي في حالة الفشل
+    }
+  };
+
+  const handleChange = async (e) => {
     const { name, value, type, files } = e.target;
 
     if (type === "file" && files && files.length > 0) {
@@ -74,14 +121,14 @@ const Singuprep = () => {
         return;
       }
 
-      if (fileSize > 5) {
-        // حد أقصى 5 ميجابايت
-        setErrors((prev) => ({
-          ...prev,
-          [name]: "حجم الصورة كبير جداً (الحد الأقصى 5 ميجابايت)",
-        }));
-        return;
-      }
+      // if (fileSize > 5) {
+      //   // حد أقصى 5 ميجابايت
+      //   setErrors((prev) => ({
+      //     ...prev,
+      //     [name]: "حجم الصورة كبير جداً (الحد الأقصى 5 ميجابايت)",
+      //   }));
+      //   return;
+      // }
 
       // إزالة أي خطأ سابق لهذا الحقل
       setErrors((prev) => {
@@ -90,9 +137,26 @@ const Singuprep = () => {
         return newErrors;
       });
 
+      // ضغط الصورة قبل المعالجة
+      const compressedFile = await compressImage(file);
+      const compressedSize = compressedFile.size / 1024 / 1024;
+
+      console.log(
+        `الصورة الأصلية: ${fileSize.toFixed(
+          2
+        )} MB, الصورة المضغوطة: ${compressedSize.toFixed(2)} MB`
+      );
+
+      // إنشاء عنوان URL للمعاينة
+      const previewUrl = URL.createObjectURL(compressedFile);
+      setPreviewUrls((prev) => ({
+        ...prev,
+        [name]: previewUrl,
+      }));
+
       setFormData({
         ...formData,
-        [name]: file,
+        [name]: compressedFile,
       });
     } else {
       setFormData({
@@ -101,50 +165,44 @@ const Singuprep = () => {
       });
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
     if (!validateForm()) {
       setSubmitMessage({ type: "error", message: "يرجى تصحيح الأخطاء" });
       return;
     }
 
     setIsLoading(true);
+    const formDataToSend = new FormData();
+
+    // إضافة البيانات النصية
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("password", formData.password);
+    formDataToSend.append("phone", formData.phone);
+    formDataToSend.append("identityFront", formData.identityFront);
+    formDataToSend.append("identityBack", formData.identityBack);
+
+    if (!formData.identityFront) {
+      setErrors((prev) => ({
+        ...prev,
+        identityFront: "صورة البطاقة الأمامية مطلوبة",
+      }));
+      return;
+    }
+    if (!formData.identityBack) {
+      setErrors((prev) => ({
+        ...prev,
+        identityBack: "صورة البطاقة الخلفية مطلوبة",
+      }));
+      return;
+    }
+    console.log(formDataToSend);
+    setSubmitMessage({ type: "success", message: " لقد بدا" });
+
     try {
-      const formDataToSend = new FormData();
-
-      // إضافة البيانات النصية
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("password", formData.password);
-      formDataToSend.append("phone", formData.phone);
-
-      // معالجة خاصة للصور
-      if (formData.identityFront) {
-        // تحويل الصورة إلى Blob إذا لزم الأمر
-        const frontBlob =
-          formData.identityFront instanceof Blob
-            ? formData.identityFront
-            : await fetch(URL.createObjectURL(formData.identityFront)).then(
-                (r) => r.blob()
-              );
-
-        formDataToSend.append("identityFront", frontBlob, "identity_front.jpg");
-      }
-
-      if (formData.identityBack) {
-        const backBlob =
-          formData.identityBack instanceof Blob
-            ? formData.identityBack
-            : await fetch(URL.createObjectURL(formData.identityBack)).then(
-                (r) => r.blob()
-              );
-
-        formDataToSend.append("identityBack", backBlob, "identity_back.jpg");
-      }
-
       const response = await axiosConfige.post(
         "/auth/representative/register",
         formDataToSend,
@@ -154,22 +212,22 @@ const Singuprep = () => {
           },
         }
       );
-
+      console.log(response);
       setSubmitMessage({
         type: "success",
         message: "تم التسجيل بنجاح!",
       });
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.log(error);
       setSubmitMessage({
         type: "error",
-        message: error.response?.data?.message || "حدث خطأ أثناء التسجيل",
+        message:
+          error.response?.data?.message || " يرجي اختيار صورى من المعرض  ",
       });
     } finally {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className={style.container}>
@@ -215,29 +273,46 @@ const Singuprep = () => {
 
           <div className={style.formGroup}>
             <label htmlFor="password">كلمة المرور</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="يرجى ادخال كلمة المرور"
-              onChange={handleChange}
-              className={errors.password ? style.errorInput : ""}
-            />
+            <div className={style.passwordInputContainer}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="يرجى ادخال كلمة المرور"
+                onChange={handleChange}
+                className={errors.password ? style.errorInput : ""}
+              />
+              <button
+                type="button"
+                className={style.passwordToggle}
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? "إخفاء" : "إظهار"}
+              </button>
+            </div>
             {errors.password && (
               <span className={style.errorText}>{errors.password}</span>
             )}
           </div>
-
           <div className={style.formGroup}>
             <label htmlFor="confirmPassword">تأكيد كلمة المرور</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="يرجى اعادة ادخال كلمة المرور"
-              onChange={handleChange}
-              className={errors.confirmPassword ? style.errorInput : ""}
-            />
+            <div className={style.passwordInputContainer}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="يرجى اعادة ادخال كلمة المرور"
+                onChange={handleChange}
+                className={errors.confirmPassword ? style.errorInput : ""}
+              />
+              <button
+                type="button"
+                className={style.passwordToggle}
+                onClick={toggleConfirmPasswordVisibility}
+              >
+                {showConfirmPassword ? "إخفاء" : "إظهار"}
+              </button>
+            </div>
             {errors.confirmPassword && (
               <span className={style.errorText}>{errors.confirmPassword}</span>
             )}
@@ -259,37 +334,57 @@ const Singuprep = () => {
           </div>
 
           <div className={style.btnGroup}>
-            <input
-              type="file"
-              id="identityFront"
-              name="identityFront"
-              className={style.IDBtn}
-              onChange={handleChange}
-              accept="image/*"
-              capture="environment" // إضافة خاصية capture للتحكم في مصدر الصورة
-            />
-            <label htmlFor="identityFront">
-              صورة البطاقة الشخصية <br /> من الامام
-            </label>
-            {errors.identityFront && (
-              <span className={style.errorText}>{errors.identityFront}</span>
-            )}
+            <div className={style.imageUploadContainer}>
+              <input
+                type="file"
+                id="identityFront"
+                name="identityFront"
+                className={style.IDBtn}
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="identityFront">
+                صورة البطاقة الشخصية <br /> من الامام
+              </label>
+              {previewUrls.identityFront && (
+                <div className={style.imagePreview}>
+                  <img
+                    src={previewUrls.identityFront}
+                    alt="معاينة البطاقة الأمامية"
+                    className={style.previewImage}
+                  />
+                </div>
+              )}
+              {errors.identityFront && (
+                <span className={style.errorText}>{errors.identityFront}</span>
+              )}
+            </div>
 
-            <input
-              type="file"
-              id="identityBack"
-              name="identityBack"
-              className={style.IDBtn}
-              onChange={handleChange}
-              accept="image/*"
-              capture="environment" // إضافة خاصية capture للتحكم في مصدر الصورة
-            />
-            <label htmlFor="identityBack">
-              صورة البطاقة الشخصية <br /> من الخلف
-            </label>
-            {errors.identityBack && (
-              <span className={style.errorText}>{errors.identityBack}</span>
-            )}
+            <div className={style.imageUploadContainer}>
+              <input
+                type="file"
+                id="identityBack"
+                name="identityBack"
+                className={style.IDBtn}
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="identityBack">
+                صورة البطاقة الشخصية <br /> من الخلف
+              </label>
+              {previewUrls.identityBack && (
+                <div className={style.imagePreview}>
+                  <img
+                    src={previewUrls.identityBack}
+                    alt="معاينة البطاقة الخلفية"
+                    className={style.previewImage}
+                  />
+                </div>
+              )}
+              {errors.identityBack && (
+                <span className={style.errorText}>{errors.identityBack}</span>
+              )}
+            </div>
           </div>
 
           <button

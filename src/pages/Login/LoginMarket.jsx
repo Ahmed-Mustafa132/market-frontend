@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import {useState } from "react";
 import Style from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ export default function LoginRep() {
             localStorage.setItem("token", res.data.token);
           setLoading(false);
           navigate("/Dashboard")
+          window.location.reload();
 
         } catch (err) {
           setError(err);
@@ -58,7 +59,7 @@ export default function LoginRep() {
               {loading ? "جاري التسجيل" : "تسجيل الدخول"}
             </button>
           </form>
-          <Link>
+          <Link to={"/forgot-password/market"}>
             <p>هل نسيت كلمة السر؟</p>
           </Link>
           <div className={Style.orDivider}>

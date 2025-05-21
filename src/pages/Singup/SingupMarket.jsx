@@ -3,6 +3,8 @@ import style from "./Singup.module.css";
 import logo from "../../assets/logo.png";
 import axiosConfige from "../../Config/axiosConfige";
 import { Link } from "react-router-dom";
+import imageCompression from "browser-image-compression"; 
+
 const Singuprep = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,6 +20,34 @@ const Singuprep = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState({ type: "", message: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [previewUrls, setPreviewUrls] = useState({
+    BusinessRecords: null,
+    taxID: null,
+  });
+
+  // تنظيف عناوين URL المعاينة عند إلغاء تحميل المكون
+  useState(() => {
+    return () => {
+      if (previewUrls.BusinessRecords) {
+        URL.revokeObjectURL(previewUrls.BusinessRecords);
+      }
+      if (previewUrls.taxID) {
+        URL.revokeObjectURL(previewUrls.taxID);
+      }
+    };
+  }, [previewUrls]);
+  // دالة لتبديل حالة إظهار/إخفاء كلمة السر
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // دالة لتبديل حالة إظهار/إخفاء تأكيد كلمة السر
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -58,13 +88,67 @@ const Singuprep = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  const handleChange = (e) => {
+
+  // دالة لضغط الصور
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // الحد الأقصى للحجم بالميجابايت
+      maxWidthOrHeight: 1920, // الحد الأقصى للعرض أو الارتفاع
+      useWebWorker: true, // استخدام Web Worker لتحسين الأداء
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("فشل ضغط الصورة:", error);
+      return file; // إرجاع الملف الأصلي في حالة الفشل
+    }
+  };
+
+  const handleChange = async (e) => {
     const { name, value, type, files } = e.target;
 
-    if (type === "file") {
+    if (type === "file" && files && files.length > 0) {
+      // التحقق من نوع الملف وحجمه
+      const file = files[0];
+      const fileType = file.type;
+      const fileSize = file.size / 1024 / 1024; // تحويل إلى MB
+
+      if (!fileType.startsWith("image/")) {
+        setErrors((prev) => ({ ...prev, [name]: "يجب أن يكون الملف صورة" }));
+        return;
+      }
+
+
+
+      // إزالة أي خطأ سابق لهذا الحقل
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+
+      // ضغط الصورة قبل المعالجة
+      const compressedFile = await compressImage(file);
+      const compressedSize = compressedFile.size / 1024 / 1024;
+
+      console.log(
+        `الصورة الأصلية: ${fileSize.toFixed(
+          2
+        )} MB, الصورة المضغوطة: ${compressedSize.toFixed(2)} MB`
+      );
+
+      // إنشاء عنوان URL للمعاينة
+      const previewUrl = URL.createObjectURL(compressedFile);
+      setPreviewUrls((prev) => ({
+        ...prev,
+        [name]: previewUrl,
+      }));
+
       setFormData({
         ...formData,
-        [name]: files[0],
+        [name]: compressedFile,
       });
     } else {
       setFormData({
@@ -73,6 +157,7 @@ const Singuprep = () => {
       });
     }
   };
+
   const handleSubmit = async (e) => {
     console.log(formData);
     e.preventDefault();
@@ -98,7 +183,6 @@ const Singuprep = () => {
       console.log(response);
       setSubmitMessage({ type: "success", message: "تم التسجيل بنجاح" });
     } catch (error) {
-       
       setSubmitMessage({
         type: "error",
         message: error.response?.data?.massage || "حدث خطأ اثناء التسجيل",
@@ -149,33 +233,50 @@ const Singuprep = () => {
           </div>
           <div className={style.formGroup}>
             <label htmlFor="password">كلمة المرور</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="يرجى ادخال كلمة المرور"
-              onChange={handleChange}
-              className={errors.password ? style.errorInput : ""}
-            />
+            <div className={style.passwordInputContainer}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="يرجى ادخال كلمة المرور"
+                onChange={handleChange}
+                className={errors.password ? style.errorInput : ""}
+              />
+              <button
+                type="button"
+                className={style.passwordToggle}
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? "إخفاء" : "إظهار"}
+              </button>
+            </div>
             {errors.password && (
               <span className={style.errorText}>{errors.password}</span>
             )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="confirmPassword">تأكيد كلمة المرور</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="يرجى اعادة ادخال كلمة المرور"
-              onChange={handleChange}
-              className={errors.confirmPassword ? style.errorInput : ""}
-            />
+            <div className={style.passwordInputContainer}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="يرجى اعادة ادخال كلمة المرور"
+                onChange={handleChange}
+                className={errors.confirmPassword ? style.errorInput : ""}
+              />
+              <button
+                type="button"
+                className={style.passwordToggle}
+                onClick={toggleConfirmPasswordVisibility}
+              >
+                {showConfirmPassword ? "إخفاء" : "إظهار"}
+              </button>
+            </div>
             {errors.confirmPassword && (
               <span className={style.errorText}>{errors.confirmPassword}</span>
             )}
           </div>
-
           <div className={style.formGroup}>
             <label htmlFor="phone">رقم الهاتف</label>
             <input
@@ -191,34 +292,58 @@ const Singuprep = () => {
             )}
           </div>
           <div className={style.btnGroup}>
-            <input
-              type="file"
-              id="BusinessRecords"
-              name="BusinessRecords"
-              className={style.IDBtn}
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <label htmlFor="BusinessRecords">
-              السجل <br />
-              التجاري{" "}
-            </label>
-            {errors.BusinessRecords && (
-              <span className={style.errorText}>{errors.BusinessRecords}</span>
-            )}
+            <div className={style.imageUploadContainer}>
+              <input
+                type="file"
+                id="BusinessRecords"
+                name="BusinessRecords"
+                className={style.IDBtn}
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="BusinessRecords">
+                السجل <br />
+                التجاري{" "}
+              </label>
+              {previewUrls.BusinessRecords && (
+                <div className={style.imagePreview}>
+                  <img
+                    src={previewUrls.BusinessRecords}
+                    alt="معاينة السجل التجاري"
+                    className={style.previewImage}
+                  />
+                </div>
+              )}
+              {errors.BusinessRecords && (
+                <span className={style.errorText}>
+                  {errors.BusinessRecords}
+                </span>
+              )}
+            </div>
 
-            <input
-              type="file"
-              id="taxID"
-              name="taxID"
-              className={style.IDBtn}
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <label htmlFor="taxID">البطاقة الضريبية </label>
-            {errors.taxID && (
-              <span className={style.errorText}>{errors.taxID}</span>
-            )}
+            <div className={style.imageUploadContainer}>
+              <input
+                type="file"
+                id="taxID"
+                name="taxID"
+                className={style.IDBtn}
+                onChange={handleChange}
+                accept="image/*"
+              />
+              <label htmlFor="taxID">البطاقة الضريبية </label>
+              {previewUrls.taxID && (
+                <div className={style.imagePreview}>
+                  <img
+                    src={previewUrls.taxID}
+                    alt="معاينة البطاقة الضريبية"
+                    className={style.previewImage}
+                  />
+                </div>
+              )}
+              {errors.taxID && (
+                <span className={style.errorText}>{errors.taxID}</span>
+              )}
+            </div>
           </div>
           <button
             type="submit"

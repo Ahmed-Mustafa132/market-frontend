@@ -28,6 +28,7 @@ export default function Login() {
       setSuccess(true);
       setError(null);
       navigate("/Dashboard");
+      window.location.reload();
     } catch (err) {
       setLoading(false);
       setError(err.response.data.message);
@@ -77,7 +78,7 @@ export default function Login() {
                   );
                   setUser(res);
                   navigate("/dashboard");
-                  console.log(res);
+                  window.location.reload();
                 } catch (error) {
                   console.error("Login Failed:", error);
                 }

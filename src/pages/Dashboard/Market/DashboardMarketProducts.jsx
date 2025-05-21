@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import axiosConfige from "../../../Config/axiosConfige";
 import style from "../Dashboard.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Card from "../../../components/ProdactCard/ProdactCard";
-import { Link } from "react-router-dom";
+import imageCompression from "browser-image-compression"; // Import the compression library
 import { FaTrashAlt, FaEye, FaCheck, FaEdit } from "react-icons/fa";
 
 export default function DashboardProdacte() {
@@ -11,13 +10,12 @@ export default function DashboardProdacte() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showdetails, setShowDetails] = useState(false);
-  const [details, setDetails] = useState([]);
   const [showAddProduct, setShowAddProduct] = useState(false);
-  const [addProduct, setAddProduct] = useState([]);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [compressing, setCompressing] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -26,6 +24,7 @@ export default function DashboardProdacte() {
     quantity: "",
     image: null,
   });
+  
   useEffect(() => {
     try {
       axiosConfige
@@ -37,30 +36,73 @@ export default function DashboardProdacte() {
         .catch((error) => {
           setError(error.data);
           setLoading(false);
-           
         });
     } catch (error) {
       setLoading(false);
-       
     }
   }, []);
+  
   const showAdd = () => {
     setShowAddProduct(!showAddProduct);
   };
+  
+  // Image compression function
+  const compressImage = async (imageFile) => {
+    if (!imageFile) return null;
+    
+    setCompressing(true);
+    
+    try {
+      const options = {
+        maxSizeMB: 1, // Max file size in MB
+        maxWidthOrHeight: 1024, // Max width/height in pixels
+        useWebWorker: true,
+        fileType: imageFile.type
+      };
+      
+      const compressedFile = await imageCompression(imageFile, options);
+      console.log('Original image size:', imageFile.size / 1024 / 1024, 'MB');
+      console.log('Compressed image size:', compressedFile.size / 1024 / 1024, 'MB');
+      
+      return compressedFile;
+    } catch (error) {
+      console.error('Error compressing image:', error);
+      return imageFile; // Return original file if compression fails
+    } finally {
+      setCompressing(false);
+    }
+  };
+  
+  const handleFileChangeForAdd = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const compressedImage = await compressImage(file);
+      setFormData({ ...formData, image: compressedImage });
+    }
+  };
+  
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const compressedImage = await compressImage(file);
+      setSelectedFile(compressedImage);
+    }
+  };
+  
   const postData = async () => {
     try {
       setLoading(true);
 
-      // إنشاء كائن FormData لإرسال البيانات مع الملفات
+      // Create FormData object to send data with files
       const formDataToSend = new FormData();
 
-      // إضافة البيانات النصية
+      // Add text data
       formDataToSend.append("title", formData.title);
       formDataToSend.append("price", formData.price);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("quantity", formData.quantity);
 
-      // إضافة الملف
+      // Add the compressed file
       if (formData.image) {
         formDataToSend.append("image", formData.image);
       }
@@ -71,13 +113,13 @@ export default function DashboardProdacte() {
         },
       });
 
-      // إعادة تحميل البيانات بعد الإضافة
+      // Reload data after adding
       const productsResponse = await axiosConfige.get(
         "/product/market/prodact"
       );
       setData(productsResponse.data.data);
 
-      // إغلاق نموذج الإضافة وإعادة تعيين البيانات
+      // Close form and reset data
       setShowAddProduct(false);
       setFormData({
         title: "",
@@ -87,7 +129,7 @@ export default function DashboardProdacte() {
         image: null,
       });
 
-      // إظهار رسالة نجاح (يمكنك إضافة مكون للإشعارات)
+      // Show success message
       alert("تمت إضافة المنتج بنجاح");
     } catch (error) {
       console.error("خطأ في إضافة المنتج:", error);
@@ -96,6 +138,7 @@ export default function DashboardProdacte() {
       setLoading(false);
     }
   };
+  
   const deleteId = async (id) => {
     if (window.confirm("هل أنت متأكد من حذف هذا  المنتج ؟")) {
       axiosConfige
@@ -112,10 +155,11 @@ export default function DashboardProdacte() {
         });
     }
   };
+  
   const viewDetails = async (id) => {
     try {
       const marketRes = await axiosConfige.get(`/product/${id}`);
-      setDetails(marketRes.data.data);
+      // setDetails(marketRes.data.data); // This line seems to be using an undefined function
 
       // Find the product details from the data array
       const product = data.find((item) => item._id === id);
@@ -125,40 +169,51 @@ export default function DashboardProdacte() {
       console.error("Error fetching details:", error);
     }
   };
+  
   const handleEdit = () => {
     setIsEditing(true);
   };
+  
   const handleSaveEdit = async () => {
-    const formData = {
-      title: selectedProduct.title,
-      description: selectedProduct.description,
-      price: selectedProduct.price,
-      market: selectedProduct.market,
-      image: selectedFile,
-    };
     try {
-      // Use FormData in the request
-      await axiosConfige.patch(`/product/${selectedProduct._id}`, formData, {
+      setLoading(true);
+      
+      // Create FormData for the request
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", selectedProduct.title);
+      formDataToSend.append("description", selectedProduct.description);
+      formDataToSend.append("price", selectedProduct.price);
+      formDataToSend.append("market", selectedProduct.market);
+      
+      // Add the compressed file if selected
+      if (selectedFile) {
+        formDataToSend.append("image", selectedFile);
+      }
+      
+      // Update the product
+      await axiosConfige.patch(`/product/${selectedProduct._id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+      
       // Update the product in the data array
       setData(
         data.map((item) =>
           item._id === selectedProduct._id ? selectedProduct : item
         )
       );
+      
       setIsEditing(false);
       alert("تم تحديث المنتج بنجاح");
     } catch (error) {
       console.error("Error updating product:", error);
       alert("حدث خطأ أثناء تحديث المنتج");
+    } finally {
+      setLoading(false);
     }
   };
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSelectedProduct({
@@ -166,6 +221,7 @@ export default function DashboardProdacte() {
       [name]: value,
     });
   };
+  
   const closeDetails = () => {
     setShowDetails(false);
     setSelectedProduct(null);
@@ -178,6 +234,7 @@ export default function DashboardProdacte() {
   if (error) {
     return <h1 style={{ textAlign: "center" }}>{error.massage}</h1>;
   }
+  
   return (
     <main>
       <section>
@@ -241,6 +298,7 @@ export default function DashboardProdacte() {
                           accept="image/*"
                           onChange={handleFileChange}
                         />
+                        {compressing && <p>جاري ضغط الصورة...</p>}
                         {selectedProduct.image && !selectedFile && (
                           <div className={style.currentImage}>
                             <p>الصورة الحالية:</p>
@@ -274,8 +332,9 @@ export default function DashboardProdacte() {
                         <button
                           className={style.saveButton}
                           onClick={handleSaveEdit}
+                          disabled={compressing}
                         >
-                          حفظ التغييرات
+                          {compressing ? "جاري الضغط..." : "حفظ التغييرات"}
                         </button>
                         <button
                           className={style.cancelButton}
@@ -393,7 +452,7 @@ export default function DashboardProdacte() {
                 />
               </div>
               <div className={style.addProductFormContent}>
-                <label>الوصف</label>
+                <label>الوصف</label> 
                 <textarea
                   name="description"
                   onChange={(e) =>
@@ -406,10 +465,25 @@ export default function DashboardProdacte() {
                 <input
                   type="file"
                   name="image"
-                  onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.files[0] })
-                  }
+                  accept="image/*"
+                  onChange={handleFileChangeForAdd}
                 />
+                {compressing && <p>جاري ضغط الصورة...</p>}
+                {formData.image && (
+                  <div className={style.previewImage}>
+                    <p>معاينة الصورة:</p>
+                    <img
+                      src={URL.createObjectURL(formData.image)}
+                      alt="Preview"
+                      style={{
+                        width: "100px",
+                        height: "auto",
+                        marginTop: "5px",
+                      }}
+                    />
+                    <p>حجم الصورة: {(formData.image.size / 1024 / 1024).toFixed(2)} MB</p>
+                  </div>
+                )}
               </div>
               <div className={style.addProductFormContent}>
                 <label htmlFor="quantity">الكمية</label>
@@ -425,8 +499,9 @@ export default function DashboardProdacte() {
                 onClick={() => {
                   postData();
                 }}
+                disabled={compressing}
               >
-                اضافة
+                {compressing ? "جاري ضغط الصورة..." : "اضافة"}
               </button>
             </div>
           </div>

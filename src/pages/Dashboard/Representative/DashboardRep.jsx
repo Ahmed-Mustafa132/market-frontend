@@ -21,7 +21,7 @@ export default function DashboardManger() {
             <p>{dashboardStats.accounts}</p>
           </div>
           <div className={style.statCard}>
-            <h2> الطلابات</h2>
+            <h2> الطلبات</h2>
             <p>{dashboardStats.orders}</p>
           </div>
           <div className={style.statCard}>
