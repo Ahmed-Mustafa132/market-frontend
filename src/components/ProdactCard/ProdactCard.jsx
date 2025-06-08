@@ -5,7 +5,10 @@ export default function ProdactCard({ product }) {
     return (
       <div className={style.card}>
         <div className={style.image}>
-          <img src={product.image.url} alt="prodact" />
+          <img
+            src={import.meta.env.VITE_API_URL + product.image}
+            alt="prodact"
+          />
         </div>
         <h3> {product.title}</h3>
         <p>{product.description} </p>

@@ -322,11 +322,17 @@ const handelSubmite = (e) => {
 
                 <div className={style.detailsItem}>
                   <p> الجانب الامامي من البطاقة </p>
-                  <img src={details.identityFront} alt="img" />
+                  <img
+                    src={import.meta.env.VITE_API_URL + details.identityFront}
+                    alt="img"
+                  />
                 </div>
                 <div className={style.detailsItem}>
                   <p> الجانب الخلفي من البطاقة </p>
-                  <img src={details.identityBack} alt="img" />
+                  <img
+                    src={import.meta.env.VITE_API_URL + details.identityBack}
+                    alt="img"
+                  />
                 </div>
               </div>
               <button onClick={() => setShowDetails(!showdetails)}>
@@ -335,25 +341,25 @@ const handelSubmite = (e) => {
             </div>
           </div>
         )}
-          {accountTogele && (
-                  <div
-                    className={style.accountTogele}
-                    onClick={() => setAccountTogele(!accountTogele)}
-                  >
-                    <div
-                      className={style.accountTogeleContainer}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <h1>حسابات</h1>
-                      <input
-                        type="number"
-                        placeholder=""
-                        onChange={(e) => setAccount(e.target.value)}
-                      />
-                    </div>
-                    <button onClick={() => SubmitAccount()}>ارسال</button>
-                  </div>
-                )}
+        {accountTogele && (
+          <div
+            className={style.accountTogele}
+            onClick={() => setAccountTogele(!accountTogele)}
+          >
+            <div
+              className={style.accountTogeleContainer}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h1>حسابات</h1>
+              <input
+                type="number"
+                placeholder=""
+                onChange={(e) => setAccount(e.target.value)}
+              />
+            </div>
+            <button onClick={() => SubmitAccount()}>ارسال</button>
+          </div>
+        )}
       </section>
     </main>
   );

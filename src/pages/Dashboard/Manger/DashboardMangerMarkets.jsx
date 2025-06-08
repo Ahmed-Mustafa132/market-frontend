@@ -127,10 +127,8 @@ export default function DashboardMangerMarkets() {
     <main>
       <section>
         <div className="filter">
-          <button onClick={() => approvedData()}>  المتاجر    </button>
-          <button onClick={() => UnApprovedData()}>
-              المتاجر قيد الانتظار 
-          </button>
+          <button onClick={() => approvedData()}> المتاجر </button>
+          <button onClick={() => UnApprovedData()}>المتاجر قيد الانتظار</button>
         </div>
         <div className="search">
           <div className="searchInput">
@@ -207,11 +205,17 @@ export default function DashboardMangerMarkets() {
 
                 <div className={style.detailsItem}>
                   <p> السجل التجاري </p>
-                  <img src={details.BusinessRecords} alt="img" />
+                  <img
+                    src={import.meta.env.VITE_API_URL + details.BusinessRecords}
+                    alt="img"
+                  />
                 </div>
                 <div className={style.detailsItem}>
                   <p>البطاقة الضريبية </p>
-                  <img src={details.taxID} alt="img" />
+                  <img
+                    src={import.meta.env.VITE_API_URL+details.taxID}
+                    alt="img"
+                  />
                 </div>
               </div>
               <button onClick={() => setShowDetails(!showdetails)}>

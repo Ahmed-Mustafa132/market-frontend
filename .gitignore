@@ -28,3 +28,4 @@ src/axiosConfige/axiosConfige.js
 *.sw?
 .env
 .env
+.env

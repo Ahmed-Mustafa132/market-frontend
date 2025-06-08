@@ -200,7 +200,9 @@ export default function DashboardMangerRepresentative() {
       <section>
         <div className="filter">
           <button onClick={() => approvedData()}> المندوبين </button>
-          <button onClick={() => UnApprovedData()}>المندوبين قيد الانتظار</button>
+          <button onClick={() => UnApprovedData()}>
+            المندوبين قيد الانتظار
+          </button>
         </div>
         <div className="search">
           <div className="searchInput">
@@ -262,9 +264,9 @@ export default function DashboardMangerRepresentative() {
                     <BsChatDots onClick={() => viewSendMassage(item.id)} />
 
                     <FaEye onClick={() => viewDetails(item.id)} />
-                      {isAuthenticated && user== "admin" && approved && (
-                        <FaCheck onClick={() => approvData(item.id)} />
-                      )}
+                    {isAuthenticated && user == "admin" && approved && (
+                      <FaCheck onClick={() => approvData(item.id)} />
+                    )}
                     {isAuthenticated && user == "admin" && (
                       <FaTrashAlt onClick={() => deleteId(item.id)} />
                     )}
@@ -307,8 +309,14 @@ export default function DashboardMangerRepresentative() {
             }}
             onClick={closeIdentity}
           >
-            <img src={identity.identityFront} alt="img" />
-            <img src={identity.identityBack} alt="img" />
+            <img
+              src={import.meta.env.VITE_API_URL + identity.identityFront}
+              alt="img"
+            />
+            <img
+              src={import.meta.env.VITE_API_URL+identity.identityBack}
+              alt="img"
+            />
           </div>
         )}
         {showdetails && (

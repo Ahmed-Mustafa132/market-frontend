@@ -102,7 +102,10 @@ export default function ProductView() {
         </div>
       </div>
       <div className={Style.imageContainer}>
-        <img src={product.image.url} alt={product.name} />
+        <img
+          src={import.meta.env.VITE_API_URL + product.image}
+          alt={product.name}
+        />
       </div>
       {showToggle && (
         <div
@@ -122,7 +125,7 @@ export default function ProductView() {
                   onChange={(e) =>
                     setOrderData({
                       ...orderData,
-                    phone: e.target.value,
+                      phone: e.target.value,
                     })
                   }
                 />
