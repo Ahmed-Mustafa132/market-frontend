@@ -206,14 +206,14 @@ export default function DashboardMangerMarkets() {
                 <div className={style.detailsItem}>
                   <p> السجل التجاري </p>
                   <img
-                    src={import.meta.env.VITE_API_URL + details.BusinessRecords}
+                    src={import.meta.env.VITE_API_URL +"/"+ details.BusinessRecords}
                     alt="img"
                   />
                 </div>
                 <div className={style.detailsItem}>
                   <p>البطاقة الضريبية </p>
                   <img
-                    src={import.meta.env.VITE_API_URL+details.taxID}
+                    src={import.meta.env.VITE_API_URL+"/"+details.taxID}
                     alt="img"
                   />
                 </div>

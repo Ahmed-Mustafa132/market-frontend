@@ -310,11 +310,11 @@ export default function DashboardMangerRepresentative() {
             onClick={closeIdentity}
           >
             <img
-              src={import.meta.env.VITE_API_URL + identity.identityFront}
+              src={import.meta.env.VITE_API_URL + "/"+identity.identityFront}
               alt="img"
             />
             <img
-              src={import.meta.env.VITE_API_URL+identity.identityBack}
+              src={import.meta.env.VITE_API_URL+"/"+identity.identityBack}
               alt="img"
             />
           </div>

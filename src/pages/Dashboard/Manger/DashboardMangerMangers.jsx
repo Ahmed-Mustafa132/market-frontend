@@ -323,14 +323,14 @@ const handelSubmite = (e) => {
                 <div className={style.detailsItem}>
                   <p> الجانب الامامي من البطاقة </p>
                   <img
-                    src={import.meta.env.VITE_API_URL + details.identityFront}
+                    src={import.meta.env.VITE_API_URL +"/"+ details.identityFront}
                     alt="img"
                   />
                 </div>
                 <div className={style.detailsItem}>
                   <p> الجانب الخلفي من البطاقة </p>
                   <img
-                    src={import.meta.env.VITE_API_URL + details.identityBack}
+                    src={import.meta.env.VITE_API_URL + "/"+details.identityBack}
                     alt="img"
                   />
                 </div>

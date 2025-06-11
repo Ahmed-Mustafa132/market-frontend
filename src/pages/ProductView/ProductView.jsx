@@ -103,7 +103,7 @@ export default function ProductView() {
       </div>
       <div className={Style.imageContainer}>
         <img
-          src={import.meta.env.VITE_API_URL + product.image}
+          src={import.meta.env.VITE_API_URL +'/'+ product.image}
           alt={product.name}
         />
       </div>

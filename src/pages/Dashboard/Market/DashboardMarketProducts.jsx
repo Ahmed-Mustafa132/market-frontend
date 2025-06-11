@@ -252,7 +252,7 @@ export default function DashboardProdacte() {
                 <div className={style.productImageContainer}>
                   {selectedProduct.image && (
                     <img
-                      src={selectedProduct.image.url}
+                      src={import.meta.env.VITE_API_URL +'/' +selectedProduct.image}
                       alt={selectedProduct.title}
                       className={style.productImage}
                     />

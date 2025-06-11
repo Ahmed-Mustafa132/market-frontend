@@ -2,7 +2,7 @@ import { useState } from "react";
 import Style from "../Login/Login.module.css";
 import { Link,useNavigate } from "react-router-dom";
 import axiosConfige from "../../Config/axiosConfige";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { loginWithGoogle } from "../../Config/authConfig";
 
 
@@ -82,7 +82,7 @@ export default function Login() {
           <div className={Style.orDivider}>
             <span>أو</span>
           </div>
-          <div className={Style.btns}>
+          {/* <div className={Style.btns}>
             <GoogleOAuthProvider clientId="1015142731368-v92q279f20boeaiomgve2s6psoh7nogj.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={async (credentialResponse) => {
@@ -100,7 +100,7 @@ export default function Login() {
                 onError={() => console.log("Login Failed")}
               />
             </GoogleOAuthProvider>
-          </div>
+          </div> */}
           <Link to={"/login/user"}>ليس لدي حساب</Link>
         </div>
       </div>

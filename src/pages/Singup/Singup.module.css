@@ -3,7 +3,7 @@
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: calc(100vh + 100px);
     background-color: #f1f1f1;
 }
 
