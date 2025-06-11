@@ -18,7 +18,7 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import AuthChecker from "./components/AuthChecker/AuthChecker";
 // reset password import
 import ForgotPasswordRep from "./pages/ForgotPassword/ForgotPasswordRep";
-import ForgotPasswordUser from "./pages/ForgotPassword/ForgotPassworduser";
+import ForgotPasswordUser from "./pages/ForgotPassword/ForgotPasswordUser";
 import ForgotPasswordMarket from "./pages/ForgotPassword/ForgotPasswordMarket";
 import ResetPasswordRep from "./pages/ForgotPassword/ResetPasswordRep";
 import ResetPasswordUser from "./pages/ForgotPassword/ResetPasswordUser";
