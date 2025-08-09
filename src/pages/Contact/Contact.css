@@ -1,0 +1,30 @@
+.contact-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px 24px;
+  direction: rtl;
+  font-family: 'Cairo', Arial, sans-serif;
+}
+
+.contact-title {
+  color: #1e88e5;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  text-align: right;
+}
+
+.contact-text {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  text-align: right;
+  line-height: 1.9;
+}
+
+.contact-text a {
+  color: #1565c0;
+  text-decoration: underline;
+}

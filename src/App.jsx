@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from "./Context/AuthContext";
 
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const Home = lazy(() => import("./pages/Home/Home"));
+
 const SingupMarket = lazy(() => import("./pages/Singup/SingupMarket"));
 const SingupRep = lazy(() => import("./pages/Singup/SingupRep"));
 const SingupUser = lazy(() => import("./pages/Singup/SingupUser"));
@@ -14,6 +15,8 @@ const LoginMarket = lazy(() => import("./pages/Login/LoginMarket"));
 const LoginManger = lazy(() => import("./pages/Login/LoginManger"));
 const ProductView = lazy(() => import("./pages/ProductView/ProductView"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+import Contact from "./pages/Contact/Contact";
+import About from "./pages/About/About";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import AuthChecker from "./components/AuthChecker/AuthChecker";
 // reset password import
@@ -92,6 +95,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductView />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             {/* login  */}
             <Route path="/login/user" element={<LoginUser />} />
             <Route path="/login/representative" element={<LoginRep />} />
@@ -111,14 +116,14 @@ export default function App() {
               path="/forgot-password/representative"
               element={<ForgotPasswordRep />}
             />
-              <Route
-                path="/forgot-password/user"  
-                element={<ForgotPasswordUser />}
-              />
-              <Route
-                path="/forgot-password/market"
-                element={<ForgotPasswordMarket />}
-              />
+            <Route
+              path="/forgot-password/user"
+              element={<ForgotPasswordUser />}
+            />
+            <Route
+              path="/forgot-password/market"
+              element={<ForgotPasswordMarket />}
+            />
             <Route
               path="/reset-password/representative/:token"
               element={<ResetPasswordRep />}
@@ -128,7 +133,7 @@ export default function App() {
               element={<ResetPasswordMarket />}
             />
             <Route
-              path="/reset-password/user/:token"  
+              path="/reset-password/user/:token"
               element={<ResetPasswordUser />}
             />
 

@@ -70,8 +70,8 @@ export default function Navbar() {
                 </button>
               </li>
             )}
-            <li onClick={() => handleNavItemClick("/contactUS")}>تواصل معنا</li>
-            <li onClick={() => handleNavItemClick("/about-us")}>تعرف علينا</li>
+            <li onClick={() => handleNavItemClick("/contact")}>تواصل معنا</li>
+            <li onClick={() => handleNavItemClick("/about")}>تعرف علينا</li>
             {isAuthenticated && user !== "user" && (
               <li onClick={() => handleNavItemClick("/dashboard")}>
                 لوحة التحكم{" "}
